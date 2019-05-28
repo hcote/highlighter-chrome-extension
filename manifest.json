@@ -1,0 +1,10 @@
+{
+    "name": "Highlighter",
+    "version": "1.0",
+    "description": "Highlight any page text on the web.",
+    "background": {
+      "scripts": ["highlighter.js"],
+      "persistent": false
+    },
+    "manifest_version": 2
+  }
