@@ -11,11 +11,7 @@ function highlight() {
         span.textContent = text.toString();
 
         // range now represents the range that was highlighted
-        if (!text.getRangeAt(0)) {
-            return null;
-        } else {
-            let range = text.getRangeAt(0);
-        }
+        let range = text.getRangeAt(0);
 
         // delete contents of range
         range.deleteContents();
