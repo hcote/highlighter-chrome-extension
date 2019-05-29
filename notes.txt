@@ -1,0 +1,11 @@
+
+1. background script listens for an event to wake it up (icon click)
+2. grab the window object
+2. highlight text and store it in storage
+3. * text is now highlighted *
+
+4. highlight over some of the highlighted text 
+5. * the selected text gets unhighlighted *
+
+click the icon to load the background script
+chrome.runtime.getBackgroundPage(function callback) => gets the window object
