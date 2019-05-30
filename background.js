@@ -1,4 +1,3 @@
-// extension injects JS ONLY when icon is clicked
 
 chrome.browserAction.onClicked.addListener(function (tab) {
         chrome.tabs.insertCSS(tab.id, {file: "highlighter.css"});
