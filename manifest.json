@@ -3,8 +3,7 @@
     "version": "1.0",
     "description": "Highlight any page text on the web.",
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+      "scripts": ["background.js"]
     },
     "permissions": [
         "storage",
