@@ -1,5 +1,5 @@
 {
-    "name": "Highlighter",
+    "name": "Smart Text Highlight",
     "version": "1.0",
     "description": "Highlight any page text on the web.",
     "background": {
@@ -18,6 +18,13 @@
             "128": "images/get_started128.png"
         }
     },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "run_at": "document_end",
+          "js": ["content_Script.js"]
+        }
+      ],
     "manifest_version": 2
   }
 

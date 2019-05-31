@@ -9,3 +9,21 @@
 
 click the icon to load the background script
 chrome.runtime.getBackgroundPage(function callback) => gets the window object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEM AT HAND
+--- URL and span text are overwriting the previous values every new highlight
+--- your highlights are stored but your unhighlights are not unstored
+--- GLOBAL VARIABLE?
