@@ -6,13 +6,16 @@ var highlights;
 
 // grab highlights obj from storage
 chrome.storage.sync.get('highlights', (results) => {
+    console.log(results);
     // if one doesnt exist, create and store one (should only apply before first highlight)
-    if (results.highlights === 'undefined') {
+    if (results === 'undefined' || Object.entries(results).length === 0 && results.constructor === Object) {
         highlights = {};
         chrome.storage.sync.set({highlights}, () => {
             console.log('Highlights Obj Not Found - Storing Empty Obj "highlights"');        
         });
+        return;
     } else {
+        console.log(results.highlights);
         // if it does exist, see if highlights stored for this url
         if (!results.highlights[url]) {
             console.log('Highlights Obj Found - No Highlights Stored for this URL');
