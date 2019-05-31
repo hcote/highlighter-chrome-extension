@@ -12,19 +12,17 @@ function highlight() {
     text.removeAllRanges();
     text.addRange(range); // {Selection obj, anchorNode, focusNode, etc}
     var hTag = text.anchorNode.parentElement; // <span bg=(rgba)>...</span>
-
+    var savedText = text
+        
     // highlight / remove highlight
     if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
         hTag.style.backgroundColor = 'transparent';
         // TO DO: loop through highlights[url] to remove highlight
-    } else {
-        console.log(hTag);
-        
+    } else {        
         document.execCommand("HiliteColor", false, '#C7FFD8');
         // async -- need this to access highlights object
         chrome.storage.sync.get('highlights', (results) => {
             console.log(results.highlights);
-            console.log(hTag);
             
             // if its the first time highlighting on this page,
             // results.highlights[url] will not exist, so we initialize
@@ -37,15 +35,11 @@ function highlight() {
             }
             // (results.highlights[url] == 'undefined') ? highlights[url] = [] : highlights = results.highlights;
 
-            highlights[url].push(hTag.innerText);
-            console.log(hTag.innerText);
+            highlights[url].push(savedText.anchorNode.textContent);
             chrome.storage.sync.set({highlights}, () => {
                 console.log('data saved: ' + highlights[url][highlights[url].length-1]);        
             });
         });
-
-        
-
     }
 
     document.designMode = "off";
