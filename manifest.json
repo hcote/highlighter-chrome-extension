@@ -10,6 +10,14 @@
         "activeTab",
         "tabs"
     ],
+    "commands": {
+        "clear_storage": {
+            "suggested_key": {
+                "mac": "Command+Shift+A"
+            },
+            "description": "Clear highlights for current URL"
+        }
+    },
     "browser_action": {
         "default_icon": {
             "16": "images/get_started16.png",
@@ -24,7 +32,7 @@
           "run_at": "document_end",
           "js": ["content_Script.js"]
         }
-      ],
+    ],
     "manifest_version": 2
   }
 

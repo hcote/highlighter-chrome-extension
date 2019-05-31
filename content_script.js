@@ -1,17 +1,29 @@
 console.log('content_script loaded');
 
-let url = window.location.href.toString();
-let pageHighlights;
+var url = window.location.href.toString();
+var pageHighlights;
+var highlights;
 
+// grab highlights obj from storage
 chrome.storage.sync.get('highlights', (results) => {
-    pageHighlights = results.highlights[url];
-    console.log(pageHighlights);
-    if (!pageHighlights) {
-        console.log('No highlights stored for this page');
+    // if one doesnt exist, create and store one (should only apply before first highlight)
+    if (results.highlights === 'undefined') {
+        highlights = {};
+        chrome.storage.sync.set({highlights}, () => {
+            console.log('Highlights Obj Not Found - Storing Empty Obj "highlights"');        
+        });
     } else {
-        console.log('There are highlights for this page');
+        // if it does exist, see if highlights stored for this url
+        if (!results.highlights[url]) {
+            console.log('Highlights Obj Found - No Highlights Stored for this URL');
+            return;
+        } else {
+            // if there are, load & apply highlights
+            pageHighlights = results.highlights[url];
+            console.log('Highlights Obj Found For This URL');
+            console.log(pageHighlights);
+        }
     }
-    // (pageHighlights == 'undefined') ? console.log('No highlights stored for this page') : console.log('error');
 });
 
 // search through text and wrap each matching string
@@ -20,8 +32,4 @@ function applyHighlights(pageHighlights) {
     let DOM = document.body;
     console.log(pageHighlights);
     
-}
-
-// chrome.storage.sync.get('key2', (result) => {
-//     console.log(result);
-// });
+};

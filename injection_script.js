@@ -18,11 +18,13 @@ function highlight() {
         hTag.style.backgroundColor = 'transparent';
         // TO DO: loop through highlights[url] to remove highlight
     } else {
+        console.log(hTag);
+        
         document.execCommand("HiliteColor", false, '#C7FFD8');
-        // async
-        // returns undefined but passes data as callback param
+        // async -- need this to access highlights object
         chrome.storage.sync.get('highlights', (results) => {
             console.log(results.highlights);
+            console.log(hTag);
             
             // if its the first time highlighting on this page,
             // results.highlights[url] will not exist, so we initialize
@@ -36,9 +38,9 @@ function highlight() {
             // (results.highlights[url] == 'undefined') ? highlights[url] = [] : highlights = results.highlights;
 
             highlights[url].push(hTag.innerText);
-            console.log(highlights);
+            console.log(hTag.innerText);
             chrome.storage.sync.set({highlights}, () => {
-                console.log('data saved: ' + highlights[url]);        
+                console.log('data saved: ' + highlights[url][highlights[url].length-1]);        
             });
         });
 
