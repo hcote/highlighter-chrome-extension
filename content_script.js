@@ -3,12 +3,15 @@ console.log('content_script loaded');
 let url = window.location.href.toString();
 let pageHighlights;
 
-
-
 chrome.storage.sync.get('highlights', (results) => {
-    console.log('data retrieved');
-    pageHighlights = results.highlights;
-    console.log(results.highlights);
+    pageHighlights = results.highlights[url];
+    console.log(pageHighlights);
+    if (!pageHighlights) {
+        console.log('No highlights stored for this page');
+    } else {
+        console.log('There are highlights for this page');
+    }
+    // (pageHighlights == 'undefined') ? console.log('No highlights stored for this page') : console.log('error');
 });
 
 // search through text and wrap each matching string

@@ -1,34 +1,49 @@
-
-
-// chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-//     console.log(response.farewell);
-//   }
-// );
-
 document.getElementsByTagName("body")[0].onmouseup = highlight();
 
+// must be outside og highlights scope or else elements are not added to [url] array
+var highlights = {};
+
 function highlight() {
+
     document.designMode = "on";
-    // Im reinitializing highlights var every highlight
-    // which is why its always being overridden
-    var highlights = {};
     var url = window.location.href.toString();
-    highlights[url] = [];
     var text = window.getSelection();
     var range = window.getSelection().getRangeAt(0);
     text.removeAllRanges();
-    text.addRange(range);
+    text.addRange(range); // {Selection obj, anchorNode, focusNode, etc}
+    var hTag = text.anchorNode.parentElement; // <span bg=(rgba)>...</span>
 
-    if (text.anchorNode.parentElement.style.backgroundColor == 'rgb(199, 255, 216)') {
-        text.anchorNode.parentElement.style.backgroundColor = 'transparent';
-        // THIS CANNOT BE TACKLED UNTIL I GET THE GLOBAL VARIABLE SETTLED
-        // highlights[url].forEach(element => {
-        //     console.log(element);
-            
-        // });
+    // highlight / remove highlight
+    if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
+        hTag.style.backgroundColor = 'transparent';
+        // TO DO: loop through highlights[url] to remove highlight
     } else {
         document.execCommand("HiliteColor", false, '#C7FFD8');
-        highlights[url].push(text.anchorNode.parentElement.innerText);
+        // async
+        // returns undefined but passes data as callback param
+        chrome.storage.sync.get('highlights', (results) => {
+            console.log(results.highlights);
+            
+            // if its the first time highlighting on this page,
+            // results.highlights[url] will not exist, so we initialize
+            // an empty array for new highlights to be stored on this page
+            // where the url is the new key
+            if (!results.highlights[url]) {
+                highlights[url] = [];
+            } else {
+                highlights = results.highlights;
+            }
+            // (results.highlights[url] == 'undefined') ? highlights[url] = [] : highlights = results.highlights;
+
+            highlights[url].push(hTag.innerText);
+            console.log(highlights);
+            chrome.storage.sync.set({highlights}, () => {
+                console.log('data saved: ' + highlights[url]);        
+            });
+        });
+
+        
+
     }
 
     document.designMode = "off";
@@ -36,21 +51,8 @@ function highlight() {
     // NEED TO MAKE IT SO IF YOU UNHIGHLIGHT IT REMOVES THE STRING FROM 
     // SEARCH OBJECT FOR STRING AND IF YOU FIND IT AND IT'S ALONE REMOVE IT
     // BUT IF ITS IN THE MIDDLE OF OTHER STRINGS SPLIT THEM INTO THEIR OWN ARRAY ELEMENTS
-
-    chrome.storage.sync.set({highlights}, () => {
-        console.log('data saved: ' + highlights[url][0]);        
-    });
-
+        
 };
-
-
-
-
-// function highlight() {
-//     let span = document.createElement('span');
-//     window.getSelection().getRangeAt(0).surroundContents(span);
-//     span.className = "highlighted";
-// };
 
 //     "highlights" = {
 //         googlecom: [text],
