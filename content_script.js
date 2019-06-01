@@ -3,6 +3,7 @@ console.log('content_script loaded');
 var url = window.location.href.toString();
 var pageHighlights;
 var highlights;
+var DOM = document.body;
 
 // grab highlights obj from storage
 chrome.storage.sync.get('highlights', (results) => {
@@ -23,14 +24,30 @@ chrome.storage.sync.get('highlights', (results) => {
             pageHighlights = results.highlights[url];
             console.log('Highlights Obj Found For This URL');
             console.log(pageHighlights);
+            applyHighlights(pageHighlights)
         }
     }
 });
 
 // search through text and wrap each matching string
 // from pageHighlights in a span tag
-function applyHighlights(pageHighlights) {
-    let DOM = document.body;
-    console.log(pageHighlights);
-    
+function applyHighlights(pHls) {
+    console.log(pHls);
+    recursivePreorder(DOM, pHls)
 };
+
+// replaces first instance only
+function recursivePreorder(node, pHls) {  
+    // If node is a text node
+    if (node.nodeType == 3) {
+        for (let i = 0; i < pHls.length; i++) {
+            node.nodeValue = node.nodeValue.replace(i, 
+            '<span style="background-color: rgb(199, 255, 216);">i</span>')
+        }
+    }
+    // else recurse for each child node
+    else { 
+      for(var i=0; i<node.childNodes.length; i++)
+        recursivePreorder(node.childNodes[i], pHls);
+    }
+  }
