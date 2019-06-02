@@ -24,7 +24,7 @@ chrome.storage.sync.get('highlights', (results) => {
             pageHighlights = results.highlights[url];
             console.log('Highlights Obj Found For This URL');
             console.log(pageHighlights);
-            applyHighlights(pageHighlights)
+            // applyHighlights(pageHighlights)
         }
     }
 });
@@ -33,21 +33,23 @@ chrome.storage.sync.get('highlights', (results) => {
 // from pageHighlights in a span tag
 function applyHighlights(pHls) {
     console.log(pHls);
-    recursivePreorder(DOM, pHls)
+    document.body.innerText = document.body.innerText.replace('I would like to', 'frcs');
+    // recursivePreorder(DOM, pHls)
 };
 
 // replaces first instance only
-function recursivePreorder(node, pHls) {  
+function domRecursion(node, pHls) {  
     // If node is a text node
-    if (node.nodeType == 3) {
+    if (node.nodeType == 1) {
         for (let i = 0; i < pHls.length; i++) {
-            node.nodeValue = node.nodeValue.replace(i, 
-            '<span style="background-color: rgb(199, 255, 216);">i</span>')
+            console.log(node);
+            
+            node.innerHTML = node.innerHTML.replace(i, '<span style="background-color: rgb(199, 255, 216);">i</span>')
         }
     }
     // else recurse for each child node
     else { 
       for(var i=0; i<node.childNodes.length; i++)
-        recursivePreorder(node.childNodes[i], pHls);
+      domRecursion(node.childNodes[i], pHls);
     }
   }
