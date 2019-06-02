@@ -11,6 +11,12 @@
         "tabs"
     ],
     "commands": {
+        "highlight_text": {
+            "suggested_key": {
+                "mac": "Command+E"
+            },
+            "description": "Highlight Selected Text"
+        },
         "clear_storage": {
             "suggested_key": {
                 "mac": "Command+Shift+A"
