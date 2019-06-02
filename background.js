@@ -11,12 +11,3 @@ chrome.commands.onCommand.addListener((command) => {
         })
     }
 });
-
-// chrome.commands.onCommand.addListener((command) => {
-    
-// });
-
-
-// chrome.browserAction.onClicked.addListener((tab) => {
-// });
-

@@ -21,7 +21,7 @@ chrome.storage.sync.get('highlights', (results) => {
             return;
         } else {
             // if there are, load & apply highlights
-            pageHighlights = results.highlights[url];
+            pageHighlights = results.highlights;
             console.log('Highlights Obj Found For This URL');
             console.log(pageHighlights);
             // applyHighlights(pageHighlights)
@@ -32,24 +32,22 @@ chrome.storage.sync.get('highlights', (results) => {
 // search through text and wrap each matching string
 // from pageHighlights in a span tag
 function applyHighlights(pHls) {
-    console.log(pHls);
-    document.body.innerText = document.body.innerText.replace('I would like to', 'frcs');
-    // recursivePreorder(DOM, pHls)
+    recurseDOM(DOM, pHls)
 };
 
 // replaces first instance only
-function domRecursion(node, pHls) {  
+function recurseDOM(node, pHls) {  
     // If node is a text node
-    if (node.nodeType == 1) {
-        for (let i = 0; i < pHls.length; i++) {
-            console.log(node);
-            
-            node.innerHTML = node.innerHTML.replace(i, '<span style="background-color: rgb(199, 255, 216);">i</span>')
-        }
+    if (node.nodeType === 3) { 
+        console.log(node);       
+        // for (let i = 0; i < pHls.length; i++) {
+        //     node.innerHTML = node.innerHTML.replace(i, '...');
+        // }
     }
     // else recurse for each child node
-    else { 
+    else {
       for(var i=0; i<node.childNodes.length; i++)
-      domRecursion(node.childNodes[i], pHls);
+      recurseDOM(node.childNodes[i], pHls);
     }
   }
+

@@ -13,19 +13,35 @@ function highlight() {
     text.addRange(range); // {Selection obj, anchorNode, focusNode, etc}
     var hTag = text.anchorNode.parentElement; // <span bg=(rgba)>...</span>
     var savedText = text;
+    var qSelect;
+
+    function assignQSelector() {
+        if (!hTag.className) {
+            qSelect = hTag.tagName.toLowerCase();
+        } else {
+            qSelect = hTag.tagName.toLowerCase() + "." + hTag.className;
+        }
+    }
+
+    console.log(qSelect);
+    
     
     // highlight / remove highlight
     if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
         hTag.style.backgroundColor = 'transparent';
         chrome.storage.sync.get('highlights', (results) => {            
             highlights = results.highlights;
-            var index = highlights[url].indexOf(savedText.anchorNode.textContent);
-            var removedEl = highlights[url].splice(index, 1);
+            delete highlights[savedText.anchorNode.textContent]
+
+
+            // var index = highlights[url].indexOf(savedText.anchorNode.textContent);
+            // var removedEl = highlights[url].splice(index, 1);
             chrome.storage.sync.set({highlights}, () => {
-                console.log('element removed: ' + removedEl);        
+                console.log('element removed: ' + savedText.anchorNode.textContent); 
+                console.log(highlights);
+                       
             });
         });
-        // TO DO: loop through highlights[url] to remove highlight
     } else {
         document.execCommand("HiliteColor", false, '#C7FFD8');
         // async -- need this to access highlights object
@@ -35,29 +51,32 @@ function highlight() {
             // an empty array for new highlights to be stored on this page
             // where the url is the new key
             if (!results.highlights[url]) {
-                highlights[url] = [];
+                highlights[url] = {};
             } else {
                 highlights = results.highlights;
+                console.log(highlights);
+                
             }
-            // (results.highlights[url] == 'undefined') ? highlights[url] = [] : highlights = results.highlights;
 
-            highlights[url].push(savedText.anchorNode.textContent);
+            assignQSelector();
+            highlights[url][savedText.anchorNode.textContent] = qSelect;
             chrome.storage.sync.set({highlights}, () => {
-                console.log('data saved: ' + highlights[url][highlights[url].length-1]);        
+                console.log(highlights);        
             });
         });
     }
 
     document.designMode = "off";
-
-    // NEED TO MAKE IT SO IF YOU UNHIGHLIGHT IT REMOVES THE STRING FROM 
-    // SEARCH OBJECT FOR STRING AND IF YOU FIND IT AND IT'S ALONE REMOVE IT
-    // BUT IF ITS IN THE MIDDLE OF OTHER STRINGS SPLIT THEM INTO THEIR OWN ARRAY ELEMENTS
         
 };
 
-//     "highlights" = {
-//         googlecom: [text],
-//         yahoocom: [text2, text3],
-//     }
-// }
+    // "highlights" = {
+    //     googlecom: {
+    //         text1: "query selector",
+    //         text2: "query selector"
+    //     },
+    //     yahoocom: {
+    //         text3: "query selector",
+    //         text4: "query selector"
+    //     },
+    // }
