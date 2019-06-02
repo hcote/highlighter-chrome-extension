@@ -24,30 +24,22 @@ chrome.storage.sync.get('highlights', (results) => {
             pageHighlights = results.highlights;
             console.log('Highlights Obj Found For This URL');
             console.log(pageHighlights);
-            // applyHighlights(pageHighlights)
+            applyHighlights(pageHighlights, url)
         }
     }
 });
 
 // search through text and wrap each matching string
 // from pageHighlights in a span tag
-function applyHighlights(pHls) {
-    recurseDOM(DOM, pHls)
+function applyHighlights(pHls, url) {
+    for (qS in pHls[url]) {
+        console.log(qS); // key
+        console.log(pHls[url][qS]); // value (queryselector)
+        var nodeList = document.body.querySelectorAll(pHls[url][qS]); // NodeList(4) [queryselector, ...]
+        for (let i = 0; i < nodeList.length; i++) {
+            nodeList[i].innerHTML = nodeList[i].innerHTML.replace(qS, '<span style="background-color: rgb(199, 255, 216);">'+qS+'</span>');
+        }
+    }
 };
 
-// replaces first instance only
-function recurseDOM(node, pHls) {  
-    // If node is a text node
-    if (node.nodeType === 3) { 
-        console.log(node);       
-        // for (let i = 0; i < pHls.length; i++) {
-        //     node.innerHTML = node.innerHTML.replace(i, '...');
-        // }
-    }
-    // else recurse for each child node
-    else {
-      for(var i=0; i<node.childNodes.length; i++)
-      recurseDOM(node.childNodes[i], pHls);
-    }
-  }
 
