@@ -1,5 +1,5 @@
 ## Elephant Highlighter
-This is a chrome extension <link to google store> that lets you highlight important text on any web page. Revisit the page in 1 minute, 1 week, or 1 year - your data will always be saved.
+This is a chrome extension "link to google store" that lets you highlight important text on any web page. Revisit the page in 1 minute, 1 week, or 1 year - your data will always be there.
 
 ## Technologies
 1. (Vanilla) JavaScript
@@ -8,10 +8,10 @@ This is a chrome extension <link to google store> that lets you highlight import
 ## Features
 1. Highlight any text (with Command+E) to be saved automatically
 2. User can clear the stored highlights for any URL with one simple command (Command+Shift+A)
-3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phond, your highlights will show up. 
+3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phone, your highlights will be there. 
 
 ## My Stored Data Structure (Object)
-highlights = {
+<code>highlights = {
     google.com: {
         text1: ["query selector", index]
         text2: ["query selector", index]
@@ -24,7 +24,7 @@ highlights = {
         "When an HTML document has been switched to designMode, its document object exposes an execCommand": ["p.summary", 20],
         "A DOMString specifying the name of the command to execute. See Commands for a list of possible commands.": ["p", 0]
     }
-}
+}</code>
 
 ## How It Works
 
@@ -34,10 +34,10 @@ To highlight, drag your mouse over some text, and hit Command+E. This triggers m
 1. Grabs selected text
 2. Turns Design Mode "on", allowing us to make changes to the DOM
 3. If the background is already highlighted (need to remove highlight):
-    1. Selects the <span> tag surrounding it and sets style.backgroundColor = transparent (remove the highlight)
+    1. Selects the < span > tag surrounding it and sets style.backgroundColor = transparent (remove the highlight)
     2. Gets the 'highlights' object from storage (chrome.storage.get())
     3. Loops through all keys (which is the highlighted text) to look for a match, and deletes it from storage
-4. Otherwise, wrap the text in a <span> and change the background color 
+4. Otherwise, wrap the text in a < span > and change the background color 
 5. Retrieve 'highlights' from storage
     1. If there is no data for the active URL, set the value to an empty object (aol.com: {})
     2. If there is, assign the highlights variable to the results from chrome.storage.get()
@@ -59,19 +59,20 @@ If there are highlights stored for the URL:
   2. Loops through the keys of the stored object (the keys are the stored highlights, whereas the values of those keys are an array contianing the querySelector and indexOf values)
   3. Runs document.body.querySelectorAll() to get an array of all matching nodes
   4. Loops through each returned node and if the innerHTML contains a "string" matching the object key (highlighted text) AND at the same indexOf value:
-    1. Runs a .replace() function wrapping the matching text in a <span> tag with an inline style attribute for the background color
+    1. Runs a .replace() function wrapping the matching text in a < span > tag with an inline style attribute for the background color
 
 - side note: I originally went through every DOM node recursively to check for matches, but storing the querySelector value and comparing the HTML values of only the matching nodes to my stored values is significantly faster.
 
 ## Upgrades for Next Version
 1. Store the specific string you highlighted
-  - Take the sentence "Download the jQuery library from jQuery.com". If you highlight the second "jQuery", the stored highlight will be of the first instance. When you refresh the page the first occurence of will be highlighted.
-  - This is because the indexOf value that I store returns after the first match
+  &nbsp;&nbsp;&nbsp;&nbsp; - "Download the jQuery library from jQuery.com". 
+  &nbsp;&nbsp;&nbsp;&nbsp; - If you highlight the second "jQuery", the stored value will be of the first instance.
+  &nbsp;&nbsp;&nbsp;&nbsp; - This is because the indexOf value that I store returns after the first match
 2. Save highlights spanning inline elements
-  - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
-  - Only the text before the first inline element (<a>) will be saved and re-applied
+  &nbsp;&nbsp;&nbsp;&nbsp; - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
+  &nbsp;&nbsp;&nbsp;&nbsp; - Only the text before the first inline element (< a >) will be saved.
 3. Allow users to choose the highlight color
-  - Currentlt hard-coded
+  &nbsp;&nbsp;&nbsp;&nbsp; - Currently hard-coded
 
 <!-- ## Solved Problems -->
 
