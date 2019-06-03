@@ -20,6 +20,7 @@ chrome.storage.sync.get('highlights', (results) => {
             // if there are, load & apply highlights
             pageHighlights = results.highlights;
             console.log('Highlights Obj Found For This URL');
+            console.log(pageHighlights);
             applyHighlights(pageHighlights, url)
         }
     }
