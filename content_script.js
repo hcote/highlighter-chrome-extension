@@ -35,9 +35,14 @@ function applyHighlights(pHls, url) {
     for (qS in pHls[url]) {
         console.log(qS); // key
         console.log(pHls[url][qS]); // value (queryselector)
-        var nodeList = document.body.querySelectorAll(pHls[url][qS]); // NodeList(4) [queryselector, ...]
+        var nodeList = document.body.querySelectorAll(pHls[url][qS][0]); // NodeList(4) [queryselector, ...]
         for (let i = 0; i < nodeList.length; i++) {
-            nodeList[i].innerHTML = nodeList[i].innerHTML.replace(qS, '<span style="background-color: rgb(199, 255, 216);">'+qS+'</span>');
+            if (pHls[url][qS][1] === nodeList[i].innerHTML.indexOf(qS)) {
+                console.log(pHls[url][qS][1]);
+                console.log(nodeList[i].innerHTML.indexOf(qS));
+                
+                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(qS, '<span style="background-color: rgb(199, 255, 216);">'+qS+'</span>');
+            }
         }
     }
 };

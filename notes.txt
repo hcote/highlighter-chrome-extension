@@ -10,23 +10,30 @@
 click the icon to load the background script
 chrome.runtime.getBackgroundPage(function callback) => gets the window object
 
+to do:
+- shorten functions
+- clean up console.log 
+- comment code
+- come up with a logo
+- publish to chrome extensions store 
+- add github readme
 
-
-
-
-
-
-
-
-
-
-
+Version 2.0
+- ability to store highlights that wrap around elements (<a>, <code>, <em>, etc)
+  - i'm storing only the text of the parent node which ends as soon as an inline element appears
+- only highlight the actual word highlighted (not every instance of that)
+  - store the indexOf of that word? 
+  - SOLVED: new problem - if you highlight a string that appears twice in the parent element,
+    on refresh it will only apply highlight to the first appearance of that string 
+    regardless of which one you actually highlighted
+- choose what color you want to highlight 
 
 
 PROBLEM AT HAND
 --- URL and span text are overwriting the previous values every new highlight
 --- your highlights are stored but your unhighlights are not unstored
 --- GLOBAL VARIABLE?
+
 
 
 document.getElementsByTagName("body")[0].onmouseup = highlight();

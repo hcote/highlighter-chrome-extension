@@ -1,6 +1,5 @@
 document.getElementsByTagName("body")[0].onmouseup = highlight();
 
-// must be outside og highlights scope or else elements are not added to [url] array
 var highlights = {};
 
 function highlight() {
@@ -59,7 +58,7 @@ function highlight() {
             }
 
             assignQSelector();
-            highlights[url][savedText.anchorNode.textContent] = qSelect;
+            highlights[url][savedText.anchorNode.textContent] = [qSelect, hTag.innerText.indexOf(savedText)];
             chrome.storage.sync.set({highlights}, () => {
                 console.log(highlights);        
             });
@@ -70,13 +69,13 @@ function highlight() {
         
 };
 
-    // "highlights" = {
-    //     googlecom: {
-    //         text1: "query selector",
-    //         text2: "query selector"
-    //     },
-    //     yahoocom: {
-    //         text3: "query selector",
-    //         text4: "query selector"
-    //     },
-    // }
+// highlights = {
+//     googlecom: {
+//         text1: ["query selector", indexOf]
+//         text2: ["query selector", indexOf]
+//     },
+//     yahoocom: {
+//         text3: ["query selector", indexOf],
+//         text4: ["query selector", indexOf]
+//     },
+// }
