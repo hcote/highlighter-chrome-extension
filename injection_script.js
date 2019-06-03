@@ -2,6 +2,8 @@ document.getElementsByTagName("body")[0].onmouseup = highlight();
 
 var highlights = {};
 
+
+
 function highlight() {
 
     document.designMode = "on";
@@ -10,7 +12,7 @@ function highlight() {
     var range = window.getSelection().getRangeAt(0);
     text.removeAllRanges();
     text.addRange(range); // {Selection obj, anchorNode, focusNode, etc}
-    var hTag = text.anchorNode.parentElement; // <span bg=(rgba)>...</span>
+    var hTag = text.anchorNode.parentElement; // <p>...</p>
     var savedText = text;
     var qSelect;
 
@@ -20,10 +22,7 @@ function highlight() {
         } else {
             qSelect = hTag.tagName.toLowerCase() + "." + hTag.className;
         }
-    }
-
-    console.log(qSelect);
-    
+    }    
     
     // highlight / remove highlight
     if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
