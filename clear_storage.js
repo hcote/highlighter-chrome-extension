@@ -5,5 +5,4 @@ highlights[url] = {};
 
 chrome.storage.sync.set({highlights}, () => {
   console.log('storage cleared');
-  console.log(highlights[url]);       
 });
