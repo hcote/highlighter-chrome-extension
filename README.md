@@ -6,8 +6,8 @@ This is a chrome extension "link to google store" that lets you highlight import
 2. Google API
 
 ## Features
-1. Highlight any text (with Command+E) to be saved automatically
-2. User can clear the stored highlights for any URL with one simple command (Command+Shift+A)
+1. Highlight any text and hit Command+E to save it automatically
+2. User can clear the stored highlights for any URL with one simple command, Command+Shift+A
 3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phone, your highlights will be there. 
 
 ## My Stored Data Structure (Object)
