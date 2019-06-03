@@ -1,0 +1,30 @@
+button {
+  width: 2.5em;
+  height: 2.5em;
+  margin-bottom: 1em;
+  cursor: none;
+}
+
+#yellow {
+  background-color: #fcf67b;
+}
+
+#green {
+  background-color: #C7FFD8;
+}
+
+#red {
+  background-color: #ff9191;
+}
+
+#gray {
+  background-color: #d6d6d6;
+}
+
+#purple {
+  background-color: #d4a0ff;
+}
+
+#blue {
+  background-color: #91bbff;
+}

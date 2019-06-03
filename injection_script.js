@@ -2,7 +2,7 @@ document.getElementsByTagName("body")[0].onmouseup = activateExtension();
 
 var highlights = {};
 var url = window.location.href.toString();
-var text, range, hTag, savedText, qSelect;
+var text, range, hTag, savedText, qSelect, hex;
 
 function grabSelectedText() {
     text = window.getSelection();
@@ -29,7 +29,10 @@ function saveHighlight() {
             highlights = results.highlights;
         }
         assignQuerySelector();
-        highlights[url][savedText.anchorNode.textContent] = [qSelect, hTag.innerText.indexOf(savedText)];
+        console.log(savedText.anchorNode.parentElement);
+        console.log(savedText.anchorNode.parentElement.innerHTML);
+        
+        highlights[url][savedText.anchorNode.parentElement.innerHTML] = [qSelect, hTag.innerHTML.indexOf(savedText)];
         chrome.storage.sync.set({highlights}, () => {
         });
     });

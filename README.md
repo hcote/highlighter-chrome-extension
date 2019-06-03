@@ -80,6 +80,7 @@ If there are highlights stored for the URL:
   - Currently hard-coded
 
 4. Have the number of highlights & actual highlights for a page show up in the extension popup.html
+5. If you highlight before a tag it removes a tag on refresh
 
 <!-- ## Solved Problems -->
 

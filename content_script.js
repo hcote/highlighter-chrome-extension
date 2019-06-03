@@ -32,10 +32,8 @@ function applyHighlights(pHls) {
     for (key in pHls) {
         var nodeList = document.body.querySelectorAll(pHls[key][0]); // NodeList(4) [queryselector, ...]
         for (let i = 0; i < nodeList.length; i++) {
-            console.log(nodeList[i]);
-            
             if (pHls[key][1] === nodeList[i].innerText.indexOf(key)) {                
-                nodeList[i].innerHTML = nodeList[i].innerText.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
+                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
             }
         }
     }
