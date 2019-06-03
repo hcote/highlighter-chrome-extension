@@ -79,6 +79,8 @@ If there are highlights stored for the URL:
 3. Allow users to choose the highlight color
   - Currently hard-coded
 
+4. Have the number of highlights & actual highlights for a page show up in the extension popup.html
+
 <!-- ## Solved Problems -->
 
 <br />
