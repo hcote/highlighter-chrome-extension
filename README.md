@@ -82,6 +82,6 @@ If there are highlights stored for the URL:
 <!-- ## Solved Problems -->
 
 <br />
-#### Example Image
+### Example Image
 
 <img width="965" alt="Screen Shot 2019-06-03 at 12 35 23 PM" src="https://user-images.githubusercontent.com/34493689/58818550-304b3a00-85fc-11e9-86ea-2f3dac84f50b.png">
