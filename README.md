@@ -64,15 +64,18 @@ If there are highlights stored for the URL:
 - side note: I originally went through every DOM node recursively to check for matches, but storing the querySelector value and comparing the HTML values of only the matching nodes to my stored values is significantly faster.
 
 ## Upgrades for Next Version
-1. Store the specific string you highlighted
-  &nbsp;&nbsp;&nbsp;&nbsp; - "Download the jQuery library from jQuery.com". 
-  &nbsp;&nbsp;&nbsp;&nbsp; - If you highlight the second "jQuery", the stored value will be of the first instance.
-  &nbsp;&nbsp;&nbsp;&nbsp; - This is because the indexOf value that I store returns after the first match
+1. Store the specific string you highlighted 
+
+  - "Download the jQuery library from jQuery.com".
+  - If you highlight the second "jQuery", the stored value will be of the first instance.
+  - This is because the indexOf value that I store returns after the first match
 2. Save highlights spanning inline elements
-  &nbsp;&nbsp;&nbsp;&nbsp; - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
-  &nbsp;&nbsp;&nbsp;&nbsp; - Only the text before the first inline element (< a >) will be saved.
+
+  - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
+  - Only the text before the first inline element (< a >) will be saved.
+  
 3. Allow users to choose the highlight color
-  &nbsp;&nbsp;&nbsp;&nbsp; - Currently hard-coded
+  - Currently hard-coded
 
 <!-- ## Solved Problems -->
 
