@@ -6,12 +6,13 @@ This is a chrome extension "link to google store" that lets you highlight import
 2. Google API
 
 ## Features
-1. Highlight any text (with Command+E) to be saved automatically
-2. User can clear the stored highlights for any URL with one simple command (Command+Shift+A)
+1. Highlight any text and hit Command+E to save it automatically
+2. User can clear the stored highlights for any URL with one simple command, Command+Shift+A
 3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phone, your highlights will be there. 
 
 ## My Stored Data Structure (Object)
-<code>highlights = {
+```
+highlights = {
     google.com: {
         text1: ["query selector", index]
         text2: ["query selector", index]
@@ -24,7 +25,8 @@ This is a chrome extension "link to google store" that lets you highlight import
         "When an HTML document has been switched to designMode, its document object exposes an execCommand": ["p.summary", 20],
         "A DOMString specifying the name of the command to execute. See Commands for a list of possible commands.": ["p", 0]
     }
-}</code>
+}
+```
 
 ## How It Works
 
