@@ -71,16 +71,16 @@ If there are highlights stored for the URL:
   - "Download the jQuery library from jQuery.com".
   - If you highlight the second "jQuery", the stored value will be of the first instance.
   - This is because the indexOf value that I store returns after the first match
-2. Save highlights spanning inline elements
+2. SOLVED: Save highlights spanning inline elements
 
   - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
   - Only the text before the first inline element (< a >) will be saved.
-  
-3. Allow users to choose the highlight color
+3. cannot highlight across block elements (if you drag highlight from an h2 into a p tag only the h2 will register)
+3. IN PROGRESS: Allow users to choose the highlight color
   - Currently hard-coded
 
 4. Have the number of highlights & actual highlights for a page show up in the extension popup.html
-5. If you highlight before a tag it removes a tag on refresh
+5. SOLVED: If you highlight before a tag it removes a tag on refresh
 
 <!-- ## Solved Problems -->
 
@@ -88,3 +88,4 @@ If there are highlights stored for the URL:
 ## Example Image
 
 <img width="965" alt="Screen Shot 2019-06-03 at 12 35 23 PM" src="https://user-images.githubusercontent.com/34493689/58818550-304b3a00-85fc-11e9-86ea-2f3dac84f50b.png">
+

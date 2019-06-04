@@ -35,6 +35,9 @@ function applyHighlights(pHls) {
             if (pHls[key][1] === nodeList[i].innerText.indexOf(key)) {                
                 nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
             }
+            if (pHls[key][2] === nodeList[i].innerText.indexOf(key)) {                
+                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
+            }
         }
     }
 };

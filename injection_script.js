@@ -29,10 +29,7 @@ function saveHighlight() {
             highlights = results.highlights;
         }
         assignQuerySelector();
-        console.log(savedText.anchorNode.parentElement);
-        console.log(savedText.anchorNode.parentElement.innerHTML);
-        
-        highlights[url][savedText.anchorNode.parentElement.innerHTML] = [qSelect, hTag.innerHTML.indexOf(savedText)];
+        highlights[url][savedText.anchorNode.parentElement.innerHTML] = [qSelect, hTag.innerText.indexOf(savedText), hTag.innerHTML.indexOf(savedText)];
         chrome.storage.sync.set({highlights}, () => {
         });
     });
