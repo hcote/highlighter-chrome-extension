@@ -1,51 +1,35 @@
 var url = window.location.href.toString();
 var DOM = document.body;
-var pageHighlights, highlights;
+var highlights;
 
-function applyHighlightsIfExist() {
-    chrome.storage.sync.get('highlights', (results) => {
+function searchForHighlights() {
+    chrome.storage.local.get('highlights', (results) => {
         if (objDoesNotExist(results)) {
             createHighlightObj();
         } else {
             if (doHighlightsForThisURLExist(results)) {
-                console.log('Highlights Obj Found - No Highlights Stored for this URL');
                 return;
             } else {
-                console.log('Highlights Obj Found For This URL');
-                pageHighlights = results.highlights[url];
-                console.log(pageHighlights);
-                applyHighlights(pageHighlights);
+                console.log(results);
+                applyHighlights(results.highlights[url]);
             }
         }
     });
 }
-
-function createHighlightObj() {
-    highlights = {};
-    chrome.storage.sync.set({highlights}, () => {
-        console.log('Highlights Obj Not Found - Storing Empty Obj "highlights"');        
-    });
-    return;
-}
-
-function applyHighlights(pHls) {
-    for (key in pHls) {
-        var nodeList = document.body.querySelectorAll(pHls[key][0]); // NodeList(4) [queryselector, ...]
-        for (let i = 0; i < nodeList.length; i++) {
-            if (pHls[key][1] === nodeList[i].innerText.indexOf(key)) {                
-                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
-            }
-            if (pHls[key][2] === nodeList[i].innerText.indexOf(key)) {                
-                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
-            }
-        }
-    }
-};
 
 function objDoesNotExist(results) {
     if (results === 'undefined' || Object.entries(results).length === 0 && results.constructor === Object) {
         return true;
     }
+}
+
+function createHighlightObj() {
+    highlights = {
+        color: 'rgb(199, 255, 216)'
+    };
+    chrome.storage.local.set({highlights}, () => {        
+    });
+    return;
 }
 
 function doHighlightsForThisURLExist(results) {
@@ -54,4 +38,21 @@ function doHighlightsForThisURLExist(results) {
     }
 }
 
-applyHighlightsIfExist();
+function applyHighlights(pageHighlights) {
+    console.log('Highlights Found For This URL');
+    for (key in pageHighlights) {
+        var nodeList = document.body.querySelectorAll(pageHighlights[key][0]); // NodeList(4) [queryselector, ...]
+        for (let i = 0; i < nodeList.length; i++) {
+            // console.log();
+            if (pageHighlights[key][1] === nodeList[i].innerText.indexOf(key)) {
+                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
+            }
+            if (pageHighlights[key][2] === nodeList[i].innerText.indexOf(key)) {                
+                nodeList[i].innerHTML = nodeList[i].innerHTML.replace(key, '<span style="background-color: rgb(199, 255, 216);">'+key+'</span>');
+            }
+        }
+    }
+}
+
+
+searchForHighlights();

@@ -3,6 +3,7 @@ var url = window.location.href.toString();
 
 highlights[url] = {};
 
-chrome.storage.sync.set({highlights}, () => {
-  console.log('storage cleared');
+chrome.storage.local.set({highlights}, () => {
+  console.log('Storage Cleared');
+  console.log(highlights);
 });

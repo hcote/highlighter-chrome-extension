@@ -81,8 +81,12 @@ If there are highlights stored for the URL:
 
 4. Have the number of highlights & actual highlights for a page show up in the extension popup.html
 5. SOLVED: If you highlight before a tag it removes a tag on refresh
-
+6. Limitations/edge cases: email, PDFs
+7. I request permissions for every site. which some sites block access 
+(cnn.com)
+8. Double clicking to highlight an area will not store the highlight SOLVED .tostring.trim
 <!-- ## Solved Problems -->
+## Future Upgrades
 
 <br />
 ## Example Image
