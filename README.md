@@ -8,7 +8,7 @@ This is a chrome extension "link to google store" that lets you highlight import
 ## Features
 1. Highlight any text and hit Command+E to save it automatically
 2. User can clear the stored highlights for any URL with one simple command, Command+Shift+A
-3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phone, your highlights will be there. 
+3. Syncs across all devices - if you highlight text from a laptop, then look at the same web page from your phone, your highlights will be there (if you are logged in to Chrome on both). 
 
 ## My Stored Data Structure (Object)
 ```
@@ -32,14 +32,14 @@ highlights = {
 
 I have two scripts that load on every page. The first is background.js which listens for a specific event. The event Command+E triggers a function that injects a script into the browser (injection_script.js), which highlights selected text. 
 
-To highlight, drag your mouse over some text, and hit Command+E. This triggers my highlight() function which does several things. In order:
+To highlight, drag your mouse over some text, and hit Command+E. This triggers a function which calls several others. Sequence of events:
 1. Grabs selected text
 2. Turns Design Mode "on", allowing us to make changes to the DOM
 3. If the background is already highlighted (need to remove highlight):
-    1. Selects the < span > tag surrounding it and sets style.backgroundColor = transparent (remove the highlight)
+    1. Selects the < span > tag surrounding text and sets style.backgroundColor = transparent (remove the highlight)
     2. Gets the 'highlights' object from storage (chrome.storage.get())
-    3. Loops through all keys (which is the highlighted text) to look for a match, and deletes it from storage
-4. Otherwise, wrap the text in a < span > and change the background color 
+    3. Loops through all keys (which is the saved highlights) to look for a match, and deletes it from storage
+4. Else, wrap the text in a < span > and apply the background color 
 5. Retrieve 'highlights' from storage
     1. If there is no data for the active URL, set the value to an empty object (aol.com: {})
     2. If there is, assign the highlights variable to the results from chrome.storage.get()
@@ -67,25 +67,28 @@ If there are highlights stored for the URL:
 
 ## Upgrades for Next Version
 1. Store the specific string you highlighted 
-
   - "Download the jQuery library from jQuery.com".
   - If you highlight the second "jQuery", the stored value will be of the first instance.
   - This is because the indexOf value that I store returns after the first match
-2. SOLVED: Save highlights spanning inline elements
-
-  - <p>The <a href="...">getter function</a> created by the <code>public</code> keyword is a bit more complex in this case.</p>
-  - Only the text before the first inline element (< a >) will be saved.
-3. cannot highlight across block elements (if you drag highlight from an h2 into a p tag only the h2 will register)
+2. cannot highlight across block elements (if you drag highlight from an h2 into a p tag only the h2 will register)
 3. IN PROGRESS: Allow users to choose the highlight color
   - Currently hard-coded
-
 4. Have the number of highlights & actual highlights for a page show up in the extension popup.html
-5. SOLVED: If you highlight before a tag it removes a tag on refresh
-6. Limitations/edge cases: email, PDFs
-7. I request permissions for every site. which some sites block access 
-(cnn.com)
-8. Double clicking to highlight an area will not store the highlight SOLVED .tostring.trim
-<!-- ## Solved Problems -->
+5. Limitations/edge cases: email, PDFs
+6. I request permissions for every site. which some sites block '*' access to (cnn.com)
+7. If you highlight "jQuery" in one element, anxd highlight it again in another, the second one overrides the first (because the key is the same)
+8. If the parent element is an inline tag the innertext/html indexOf does not register (-1) or it ends the highlight at the end of the inline tag
+    Find the index of the span tag and start the indexOf there
+
+## Solved Problems
+1. Storing Highlights spanning inline element tags (a, em, st, etc.)
+- Before, only the text before the inline tag was saved, because I stored the innerText
+- I solved it by storing the innerHTML instead
+- The problem that arose from this change was that I was storing the indexOf the innerText, which would re-apply the highlights to standard text inside a text element, like a "p" tag. But the indexOf is different for items arround inline elements because the indexOf counts each character in the tags.
+- To solve this, I compare the innerText.indexOf AND the innerHTML.indexOf values and compare each to matching nodes when applying highlights to pages a user is visiting again.
+2. If you double clicked to highlight a section, the indexOf values would not register, and therefore my app was unable to re-apply highlights
+- To solve it I added the .toString() and .trim() methods to the indexOf(...)
+3. Highlighting an < a > tag would remove the link on page load.
 ## Future Upgrades
 
 <br />

@@ -4,6 +4,15 @@ var highlights = {};
 var url = window.location.href.toString();
 var text, range, hTag, savedText, querySelector, hex;
 
+function getBlockElement() {
+    console.log(hTag.tagName);
+    if (hTag.tagName == "A" || hTag.tagName == "CODE" || hTag.tagName == "EM" || hTag.tagName == "STRONG" ||  hTag.tagName == "SPAN") {
+        console.log(hTag.tagName);
+        hTag = hTag.parentElement;
+        getBlockElement();
+    }
+}
+
 function grabSelectedText() {
     text = window.getSelection();
     range = window.getSelection().getRangeAt(0);
@@ -27,8 +36,6 @@ function saveHighlight() {
         // if no stored highlights for URL, initialize empty obj for text: qS value pairs
         if (!results.highlights[url]) {
             highlights[url] = {};            
-        } else {
-            highlights[url] = results.highlights;
         }
         assignQuerySelector();
         highlights[url][savedText.anchorNode.parentElement.innerHTML] = [querySelector, hTag.innerText.indexOf(savedText.toString().trim()), hTag.innerHTML.indexOf(savedText.toString().trim())];
@@ -54,13 +61,12 @@ function executeHighlight() {
 function activateExtension() {
     document.designMode = "on";
     grabSelectedText();
-
+    getBlockElement();
     if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
         removeHighlight();
     } else {
         executeHighlight();
         saveHighlight();
     }
-
     document.designMode = "off";
 };

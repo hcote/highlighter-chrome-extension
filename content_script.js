@@ -10,8 +10,8 @@ function searchForHighlights() {
             if (doHighlightsForThisURLExist(results)) {
                 return;
             } else {
-                console.log(results);
                 applyHighlights(results.highlights[url]);
+                console.log(results);
             }
         }
     });
