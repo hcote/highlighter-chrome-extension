@@ -2,16 +2,21 @@ document.getElementsByTagName("body")[0].onmouseup = activateExtension();
 
 var highlights = {};
 var url = window.location.href.toString();
-var text, range, hTag, savedText, querySelector, hex;
+var text, range, hTag, savedText, key, querySelector, hex;
 
-function getBlockElement() {
-    console.log(hTag.tagName);
+function getBlockElementForQS() {
     if (hTag.tagName == "A" || hTag.tagName == "CODE" || hTag.tagName == "EM" || hTag.tagName == "STRONG" ||  hTag.tagName == "SPAN") {
-        console.log(hTag.tagName);
         hTag = hTag.parentElement;
-        getBlockElement();
+        getBlockElementForQS();
     }
 }
+
+// function getBlockElementForKey() {
+//     if (savedText.anchorNode.parentElement.tagName == "A" || savedText.anchorNode.parentElement.tagName == "CODE" || savedText.anchorNode.parentElement.tagName == "EM" || savedText.anchorNode.parentElement.tagName == "STRONG" ||  savedText.anchorNode.parentElement.tagName == "SPAN") {
+//         savedText = savedText.anchorNode.parentElement.parentElement.innerHTML;
+//         getBlockElementForKey();
+//     }
+// }
 
 function grabSelectedText() {
     text = window.getSelection();
@@ -38,6 +43,7 @@ function saveHighlight() {
             highlights[url] = {};            
         }
         assignQuerySelector();
+        // getBlockElementForKey();
         highlights[url][savedText.anchorNode.parentElement.innerHTML] = [querySelector, hTag.innerText.indexOf(savedText.toString().trim()), hTag.innerHTML.indexOf(savedText.toString().trim())];
         chrome.storage.local.set({highlights}, () => {
         });
@@ -61,7 +67,7 @@ function executeHighlight() {
 function activateExtension() {
     document.designMode = "on";
     grabSelectedText();
-    getBlockElement();
+    getBlockElementForQS();
     if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
         removeHighlight();
     } else {

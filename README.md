@@ -96,3 +96,7 @@ If there are highlights stored for the URL:
 
 <img width="965" alt="Screen Shot 2019-06-03 at 12 35 23 PM" src="https://user-images.githubusercontent.com/34493689/58818550-304b3a00-85fc-11e9-86ea-2f3dac84f50b.png">
 
+## Edge Cases
+1. If class names change
+    - Solution: if the class name does not exist in the DOM, strip the class name from the query selector and just search the element tag nodes
+2. If the content is hidden by a button, my highlights will not register bc it searches on_load and the content is only revealed after a browser event (this is why it does not work on email)
