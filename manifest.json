@@ -1,6 +1,6 @@
 {
-    "name": "Elephant Highlighter",
-    "version": "1.2",
+    "name": "Element Highlighter",
+    "version": "1.3",
     "description": "Highlight any page text on the web.",
     "background": {
       "scripts": ["background.js"]

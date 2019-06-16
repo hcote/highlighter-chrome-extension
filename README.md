@@ -70,6 +70,7 @@ If there are highlights stored for the URL:
   - "Download the jQuery library from jQuery.com".
   - If you highlight the second "jQuery", the stored value will be of the first instance.
   - This is because the indexOf value that I store returns after the first match
+  - PLAN - start counting index of after the span tag
 2. cannot highlight across block elements (if you drag highlight from an h2 into a p tag only the h2 will register)
 3. IN PROGRESS: Allow users to choose the highlight color
   - Currently hard-coded
@@ -79,6 +80,7 @@ If there are highlights stored for the URL:
 7. If you highlight "jQuery" in one element, anxd highlight it again in another, the second one overrides the first (because the key is the same)
 8. If the parent element is an inline tag the innertext/html indexOf does not register (-1) or it ends the highlight at the end of the inline tag
     Find the index of the span tag and start the indexOf there
+9. Collapse mode - collapse the document to only the parent elements of the stored highlights
 
 ## Solved Problems
 1. Storing Highlights spanning inline element tags (a, em, st, etc.)
