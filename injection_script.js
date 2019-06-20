@@ -31,7 +31,10 @@ function assignQuerySelector() {
     if (!hTag.className) {
         querySelector = hTag.tagName.toLowerCase();
     } else {
-        querySelector = hTag.tagName.toLowerCase() + "." + hTag.className;
+       // need to replace className string spaces with dots 
+    // (that's how querySelectorAll grabs elements with multiple classes)
+        querySelector = hTag.tagName.toLowerCase() + "." + hTag.className.split(' ').join('.');
+        console.log(querySelector);
     }
 };
 

@@ -1,5 +1,5 @@
 {
-    "name": "Element Highlighter",
+    "name": "Highlighter",
     "version": "1.3",
     "description": "Highlight any page text on the web.",
     "background": {
@@ -13,7 +13,7 @@
     "commands": {
         "highlight_text": {
             "suggested_key": {
-                "mac": "Command+E",
+                "mac": "Command+K",
                 "default": "Ctrl+E"
             },
             "description": "Highlight Selected Text"
