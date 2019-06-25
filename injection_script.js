@@ -34,7 +34,6 @@ function assignQuerySelector() {
        // need to replace className string spaces with dots 
     // (that's how querySelectorAll grabs elements with multiple classes)
         querySelector = hTag.tagName.toLowerCase() + "." + hTag.className.split(' ').join('.');
-        console.log(querySelector);
     }
 };
 
@@ -54,7 +53,7 @@ function saveHighlight() {
 };
 
 function removeHighlight() {
-    hTag.style.backgroundColor = 'transparent';
+    savedText.anchorNode.parentElement.style.backgroundColor = 'transparent';
         chrome.storage.local.get('highlights', (results) => {            
         highlights = results.highlights;        
         delete highlights[url][savedText.anchorNode.textContent]
@@ -71,7 +70,7 @@ function activateExtension() {
     document.designMode = "on";
     grabSelectedText();
     getBlockElementForQS();
-    if (hTag.style.backgroundColor == 'rgb(199, 255, 216)') {
+    if (savedText.anchorNode.parentElement.style.backgroundColor == 'rgb(199, 255, 216)') {
         removeHighlight();
     } else {
         executeHighlight();
