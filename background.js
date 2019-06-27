@@ -11,13 +11,3 @@ chrome.commands.onCommand.addListener((command) => {
         })
     }
 });
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.status == 'complete') {
-        chrome.tabs.executeScript(tab.id, {file: "comment_script.js"}, () => {
-            if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message);
-            }
-        });        
-    }
-}); 
