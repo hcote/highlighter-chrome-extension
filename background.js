@@ -12,5 +12,3 @@ chrome.commands.onCommand.addListener((command) => {
     }
 });
 
-
-// document.getElementsByTagName("body")[0].ondblclick = () => {console.log('you clicked')};

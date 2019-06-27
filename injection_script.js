@@ -62,10 +62,6 @@ function addClassToSelectedText() {
     savedText.anchorNode.parentElement.className = "el";
 };
 
-function addEventListenerToHighlights() {
-    el.addEventListener('dblclick', () => {console.log('clicked')})
-}
-
 function activateExtension() {
     document.designMode = "on";
     grabSelectedText();
