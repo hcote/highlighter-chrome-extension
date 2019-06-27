@@ -36,7 +36,8 @@
         {
           "matches": ["<all_urls>"],
           "run_at": "document_end",
-          "js": ["content_script.js"]
+          "js": ["content_script.js"],
+          "css": ["style.css"]
         }
     ],
     "manifest_version": 2
