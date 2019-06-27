@@ -12,9 +12,6 @@ chrome.commands.onCommand.addListener((command) => {
     }
 });
 
-// chrome.tabs.getSelected(null, (tab) => {
-// })
-
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status == 'complete') {
         chrome.tabs.executeScript(tab.id, {file: "comment_script.js"}, () => {
