@@ -24,8 +24,8 @@ function assignQuerySelector() {
     if (!hTag.className) {
         querySelector = hTag.tagName.toLowerCase();
     } else {
-       // need to replace className string spaces with dots 
-    // (that's how querySelectorAll grabs elements with multiple classes)
+        // need to replace className string spaces with dots 
+        // (that's how querySelectorAll grabs elements with multiple classes)
         querySelector = hTag.tagName.toLowerCase() + "." + hTag.className.split(' ').join('.');
     }
 };
@@ -37,7 +37,7 @@ function saveHighlight() {
         if (!results.highlights[url]) {
             highlights[url] = {};            
         }
-        assignQuerySelector();
+        assignQuerySelector();        
         highlights[url][savedText.anchorNode.parentElement.innerHTML] = [querySelector, hTag.innerText.indexOf(savedText.toString().trim()), hTag.innerHTML.indexOf(savedText.toString().trim())];
         chrome.storage.local.set({highlights}, () => {
         });
