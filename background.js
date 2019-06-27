@@ -2,6 +2,7 @@ chrome.commands.onCommand.addListener((command) => {
     if (command === "highlight_text") {
         chrome.tabs.query({'active': true}, (tab) => {
             chrome.tabs.executeScript(tab.id, {file: "injection_script.js"});
+            chrome.tabs.executeScript(tab.id, {file: "comment_script.js"});
         })
     };
     if (command === "clear_storage") {
@@ -10,3 +11,6 @@ chrome.commands.onCommand.addListener((command) => {
         })
     }
 });
+
+
+// document.getElementsByTagName("body")[0].ondblclick = () => {console.log('you clicked')};

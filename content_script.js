@@ -25,7 +25,7 @@ function objDoesNotExist(results) {
 
 function createHighlightObj() {
     highlights = {
-        color: 'rgb(199, 255, 216)'
+        color: 'rgb(207, 255, 223)'
     };
     chrome.storage.local.set({highlights}, () => {        
     });

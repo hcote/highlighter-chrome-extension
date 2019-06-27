@@ -13,7 +13,7 @@
     "commands": {
         "highlight_text": {
             "suggested_key": {
-                "mac": "Command+E",
+                "mac": "Command+K",
                 "default": "Ctrl+E"
             },
             "description": "Highlight Selected Text"

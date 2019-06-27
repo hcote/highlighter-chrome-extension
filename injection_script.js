@@ -11,13 +11,6 @@ function getBlockElementForQS() {
     }
 }
 
-// function getBlockElementForKey() {
-//     if (savedText.anchorNode.parentElement.tagName == "A" || savedText.anchorNode.parentElement.tagName == "CODE" || savedText.anchorNode.parentElement.tagName == "EM" || savedText.anchorNode.parentElement.tagName == "STRONG" ||  savedText.anchorNode.parentElement.tagName == "SPAN") {
-//         savedText = savedText.anchorNode.parentElement.parentElement.innerHTML;
-//         getBlockElementForKey();
-//     }
-// }
-
 function grabSelectedText() {
     text = window.getSelection();
     range = window.getSelection().getRangeAt(0);
@@ -45,7 +38,6 @@ function saveHighlight() {
             highlights[url] = {};            
         }
         assignQuerySelector();
-        // getBlockElementForKey();
         highlights[url][savedText.anchorNode.parentElement.innerHTML] = [querySelector, hTag.innerText.indexOf(savedText.toString().trim()), hTag.innerHTML.indexOf(savedText.toString().trim())];
         chrome.storage.local.set({highlights}, () => {
         });
@@ -63,7 +55,15 @@ function removeHighlight() {
 };
 
 function executeHighlight() {
-    document.execCommand("HiliteColor", false, '#C7FFD8');
+    document.execCommand("HiliteColor", false, '#CFFFDF');
+}
+
+function addClassToSelectedText() {
+    savedText.anchorNode.parentElement.className = "el";
+};
+
+function addEventListenerToHighlights() {
+    el.addEventListener('dblclick', () => {console.log('clicked')})
 }
 
 function activateExtension() {
@@ -74,6 +74,7 @@ function activateExtension() {
         removeHighlight();
     } else {
         executeHighlight();
+        addClassToSelectedText();
         saveHighlight();
     }
     document.designMode = "off";
