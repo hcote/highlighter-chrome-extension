@@ -1,7 +1,7 @@
 {
     "name": "Markit - Highlight and take notes online",
     "version": "1.7",
-    "description": "Highlight any page text on the web.",
+    "description": "Highlight and add notes to any text on the web with Markit.",
     "background": {
       "scripts": ["background.js"]
     },

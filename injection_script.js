@@ -47,8 +47,8 @@ function saveHighlight() {
 function removeHighlight() {
     savedText.anchorNode.parentElement.style.backgroundColor = 'transparent';
         chrome.storage.local.get('highlights', (results) => {            
-        highlights = results.highlights;        
-        delete highlights[url][savedText.anchorNode.textContent]
+        highlights = results.highlights;
+        delete highlights[url][savedText.anchorNode.parentElement.innerHTML]
         chrome.storage.local.set({highlights}, () => { 
         });
     });
