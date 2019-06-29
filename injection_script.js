@@ -37,7 +37,7 @@ function saveHighlight() {
         if (!results.highlights[url]) {
             highlights[url] = {};            
         }
-        assignQuerySelector();        
+        assignQuerySelector();    
         highlights[url][savedText.anchorNode.parentElement.innerHTML] = [querySelector, hTag.innerText.indexOf(savedText.toString().trim()), hTag.innerHTML.indexOf(savedText.toString().trim())];
         chrome.storage.local.set({highlights}, () => {
         });
