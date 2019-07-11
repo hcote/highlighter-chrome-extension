@@ -102,3 +102,8 @@ If there are highlights stored for the URL:
 1. If class names change
     - Solution: if the class name does not exist in the DOM, strip the class name from the query selector and just search the element tag nodes
 2. If the content is hidden by a button, my highlights will not register bc it searches on_load and the content is only revealed after a browser event (this is why it does not work on email)
+
+
+Allow someone to access all highlights on the popup.html
+Allow users to change highlighter color
+Fix inline element highlight bug

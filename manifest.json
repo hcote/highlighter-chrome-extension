@@ -13,14 +13,14 @@
     "commands": {
         "highlight_text": {
             "suggested_key": {
-                "mac": "Command+E",
+                "mac": "Command+K",
                 "default": "Ctrl+E"
             },
             "description": "Highlight Selected Text"
         },
         "clear_storage": {
             "suggested_key": {
-                "mac": "Command+Shift+A",
+                "mac": "Command+Shift+K",
                 "default": "Ctrl+Shift+A"
             },
             "description": "Clear highlights for current URL"
