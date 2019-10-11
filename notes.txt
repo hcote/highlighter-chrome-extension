@@ -99,3 +99,10 @@ function highlight() {
 //         yahoocom: [text2, text3],
 //     }
 // }
+
+
+
+next iteration
+- tool tip on highlight
+    - popup.html with toggle bar to turn on/off extensions
+- popup.html showing all highlights with a link to the page

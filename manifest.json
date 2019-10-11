@@ -1,46 +1,40 @@
 {
-    "name": "Markit - Online Highlighter and Note Taker",
-    "version": "2.0",
-    "description": "Highlight and add notes to any text on the web with Markit.",
-    "background": {
-      "scripts": ["background.js"]
+  "name": "Markit - Online Highlighter and Note Taker",
+  "version": "2.0",
+  "description": "Highlight and add notes to any text on the web with Markit.",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["storage", "activeTab", "tabs"],
+  "commands": {
+    "highlight_text": {
+      "suggested_key": {
+        "mac": "Command+K",
+        "default": "Ctrl+E"
+      },
+      "description": "Highlight Selected Text"
     },
-    "permissions": [
-        "storage",
-        "activeTab",
-        "tabs"
-    ],
-    "commands": {
-        "highlight_text": {
-            "suggested_key": {
-                "mac": "Command+K",
-                "default": "Ctrl+E"
-            },
-            "description": "Highlight Selected Text"
-        },
-        "clear_storage": {
-            "suggested_key": {
-                "mac": "Command+Shift+K",
-                "default": "Ctrl+Shift+A"
-            },
-            "description": "Clear highlights for current URL"
-        }
-    },
-    "icons": {
-        "16": "images/16.png",
-        "32": "images/32.png",
-        "48": "images/48.png",
-        "128": "images/128.png"
-    },
-    "content_scripts": [
-        {
-          "matches": ["<all_urls>"],
-          "run_at": "document_end",
-          "js": ["content_script.js"],
-          "css": ["style.css"]
-        }
-    ],
-    "manifest_version": 2
+    "clear_storage": {
+      "suggested_key": {
+        "mac": "Command+Shift+K",
+        "default": "Ctrl+Shift+A"
+      },
+      "description": "Clear highlights for current URL"
+    }
+  },
+  "icons": {
+    "16": "images/16.png",
+    "32": "images/32.png",
+    "48": "images/48.png",
+    "128": "images/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_end",
+      "js": ["content_script.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "manifest_version": 2
 }
-
-  
