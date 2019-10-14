@@ -147,9 +147,24 @@ input:checked + .slider:before {
   }
 }
 
+/* NOTES */
+.searchDiv {
+  display: none;
+}
+
 .searchBar {
   outline: none;
   padding: 5px;
-  border-radius: 8px;
-  margin-right: 10px;
+  border-radius: 8px 0 0 8px;
+  margin-bottom: 20px;
+}
+
+.fa-search {
+  background-color: aliceblue;
+  padding: 6px 8px 6px 6px;
+  border-radius: 0 8px 8px 0;
+}
+
+summary {
+  outline: none;
 }

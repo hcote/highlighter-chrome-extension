@@ -1,4 +1,5 @@
 var url = window.location.href.toString();
+var notes;
 
 document.addEventListener("DOMContentLoaded", function() {
   var tab1 = document.getElementsByClassName("tablinks")[0];
@@ -14,16 +15,29 @@ document.addEventListener("DOMContentLoaded", function() {
       function callback(tabs) {
         var notesDiv = document.getElementsByClassName("notesDiv")[0];
         notesDiv.style.display = "block";
+        var searchDiv = document.getElementsByClassName("searchDiv")[0];
+        searchDiv.style.display = "block";
         var loader = document.getElementsByClassName("loader")[0];
         loader.style.display = "none";
         var currentTab = tabs[0];
-        var notesPs = Object.keys(results.highlights[currentTab.url])
+        var notesPs = ["grenjfe", "fwejw", "fonweo"]
+          // var notesPs = Object.keys(results.highlights[currentTab.url])
           .reverse()
           .map(el => {
-            return `<p>${el}</p>`;
+            // notes = Object.values(results.higlights[currentTab.url]);
+            // if (notes) {
+            //   return `<details>
+            //   <summary>${el}<summary>
+            //   <p>${notes}</p>
+            //   </details>`;
+            // } else {
+            //   return `<p>${el}</p>`;
+            // }
+            return `<details><summary>${el}</summary></details>`;
           });
         Object.keys(results.highlights[currentTab.url]).length > 0
-          ? (notesDiv.innerHTML = notesPs)
+          ? // need the .join('') or else elements will render with commas between them
+            (notesDiv.innerHTML = notesPs.join(""))
           : (notesDiv.innerHTML = `No notes stored for ${currentTab.url}`);
       }
       chrome.tabs.query(query, callback);
