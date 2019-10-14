@@ -1,8 +1,21 @@
-document.getElementsByTagName("body")[0].onmouseup = activateExtension();
+document.body.onmouseup = activateExtension();
+// document.body.onmouseup = showTT();
+
+// ////////////////////////////////////////////////
+function isActive() {
+  chrome.storage.local.get("active", results => {
+    return results.active.active;
+  });
+}
+// ////////////////////////////////////////////////
 
 var highlights = {};
 var url = window.location.href.toString();
 var text, range, hTag, savedText, key, querySelector, hex;
+
+chrome.storage.local.get("active", res => {
+  console.log(res);
+});
 
 function getBlockElementForQS() {
   if (
@@ -70,40 +83,48 @@ function executeHighlight() {
 function addClassToSelectedText() {
   savedText.anchorNode.parentElement.className = "el";
 }
-
 function activateExtension() {
-  if (window.getSelection().getRangeAt(0)) {
-    var sel = window.getSelection();
-    var sel_text = sel.toString();
-    var span = document.createElement("SPAN");
-    span.classList.add("toHL");
-    span.innerText = sel_text;
-    var range = window.getSelection().getRangeAt(0);
-    range.deleteContents();
-    range.insertNode(span);
-
-    var tt = document.createElement("DIV");
-    tt.innerHTML = "Highlight";
-    tt.style.textAlign = "center";
-    tt.style.borderRadius = "8px";
-    tt.style.padding = "5px";
-    tt.style.fontSize = "14px";
-    tt.style.backgroundColor = "rgba(38, 39, 41)";
-    tt.style.color = "aliceblue";
-    tt.style.display = "inline";
-    tt.style.position = "absolute";
-    tt.id = "tt";
-    document.getElementsByClassName("toHL")[0].appendChild(tt);
+  document.designMode = "on";
+  grabSelectedText();
+  getBlockElementForQS();
+  if (
+    savedText.anchorNode.parentElement.style.backgroundColor ==
+    "rgb(199, 255, 216)"
+  ) {
+    removeHighlight();
+  } else {
+    executeHighlight();
+    addClassToSelectedText();
+    saveHighlight();
   }
-  // document.designMode = "on";
-  // grabSelectedText();
-  // getBlockElementForQS();
-  // if (savedText.anchorNode.parentElement.style.backgroundColor == 'rgb(199, 255, 216)') {
-  //     removeHighlight();
-  // } else {
-  //     executeHighlight();
-  //     addClassToSelectedText();
-  //     saveHighlight();
-  // }
-  // document.designMode = "off";
+  document.designMode = "off";
 }
+
+// function showTT() {
+//   if (window.getSelection().getRangeAt(0)) {
+//     var sel = window.getSelection();
+//     var sel_text = sel.toString();
+//     var span = document.createElement("SPAN");
+//     span.classList.add("toHL");
+//     span.innerText = sel_text;
+//     var range = window.getSelection().getRangeAt(0);
+//     range.deleteContents();
+//     range.insertNode(span);
+
+//     var tt = document.createElement("DIV");
+//     tt.innerHTML = "Highlight";
+//     tt.style.textAlign = "center";
+//     tt.style.borderRadius = "8px";
+//     tt.style.padding = "5px";
+//     tt.style.fontSize = "14px";
+//     // tt.style.visibility = "hidden";
+//     tt.style.backgroundColor = "rgba(38, 39, 41)";
+//     tt.style.color = "aliceblue";
+//     tt.style.position = "absolute";
+//     tt.id = "tt";
+//     document.getElementsByClassName("toHL")[0].appendChild(tt);
+//   }
+//   document.getElementById("tt").addEventListener("click", function() {
+//     this.style.visibility = "hidden";
+//   });
+// }

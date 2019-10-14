@@ -2,10 +2,7 @@ var url = window.location.href.toString();
 var DOM = document.body;
 var highlights, note;
 
-insertDiv = () => {};
-
 function searchForHighlights() {
-  insertDiv();
   chrome.storage.local.get("highlights", results => {
     if (objDoesNotExist(results)) {
       createHighlightObj();
@@ -14,7 +11,7 @@ function searchForHighlights() {
         return;
       } else {
         applyHighlights(results.highlights[url]);
-        console.log(results);
+        console.log(Object.keys(results.highlights[url]));
         addPromptToTargets();
       }
     }
@@ -31,10 +28,16 @@ function objDoesNotExist(results) {
 }
 
 function createHighlightObj() {
-  highlights = {
-    color: "rgb(207, 255, 223)"
+  highlights = {};
+  active = {
+    active: true
   };
-  chrome.storage.local.set({ highlights }, () => {});
+  chrome.storage.local.set({ highlights, active }, () => {
+    console.log("highlights and active set");
+  });
+  chrome.storage.local.get("active", results => {
+    console.log(results);
+  });
   return;
 }
 

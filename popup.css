@@ -1,9 +1,155 @@
 body {
-  width: 10em;
-  min-height: 10em;
+  width: 300px;
+  height: 500px;
+  background-color: rgba(97, 152, 207, 0.3);
 }
 
-#colorPicker {
-  width: 4.5em;
-  height: 4.5em;
+/* NAV */
+.tab {
+  background-color: rgba(0, 0, 0, 0.8);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.tabcontent {
+  text-align: center;
+  margin-top: 60px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  outline: none;
+  padding: 5px 12px;
+  transition: 0.3s;
+  /* width: 28%; */
+  color: aliceblue;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 8px;
+}
+
+/* Create an active/current tablink class */
+button.tablinks.active,
+button:hover {
+  border: 1px solid aliceblue;
+  border-radius: 8px;
+}
+
+.notesDiv {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+/* TOGGLE */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* turns background blue when "on" */
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+/* moves slider circle left/right */
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.off {
+  display: none;
+}
+
+/* LOADING */
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid blue;
+  border-bottom: 4px solid blue;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.searchBar {
+  outline: none;
+  padding: 5px;
+  border-radius: 8px;
+  margin-right: 10px;
 }

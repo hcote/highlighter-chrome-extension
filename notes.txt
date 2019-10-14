@@ -106,3 +106,9 @@ next iteration
 - tool tip on highlight
     - popup.html with toggle bar to turn on/off extensions
 - popup.html showing all highlights with a link to the page
+
+
+how to only highlight on one block element
+    - innderHTML.indexOf('</p>, </div>, </li>) => show tt
+
+    highlight OR copy icons
