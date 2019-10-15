@@ -50,19 +50,21 @@ function doHighlightsForThisURLExist(results) {
 function applyHighlights(pageHighlights) {
   console.log("Highlights Found For This URL");
   for (key in pageHighlights) {
-    var nodeList = document.body.querySelectorAll(pageHighlights[key][0]); // NodeList(4) [queryselector, ...]
-    for (let i = 0; i < nodeList.length; i++) {
-      if (
-        pageHighlights[key][1] === nodeList[i].innerText.indexOf(key) ||
-        pageHighlights[key][2] === nodeList[i].innerText.indexOf(key)
-      ) {
-        grabNoteIfExists(pageHighlights);
-        nodeList[i].innerHTML = nodeList[i].innerHTML.replace(
-          key,
-          `<span style="background-color: rgb(199, 255, 216);" class="el" title="${note}">` +
-            key +
-            "</span>"
-        );
+    if (!(pageHighlights[key].toString().charAt(0) === "#")) {
+      var nodeList = document.body.querySelectorAll(pageHighlights[key][0]); // NodeList(4) [queryselector, ...]
+      for (let i = 0; i < nodeList.length; i++) {
+        if (
+          pageHighlights[key][1] === nodeList[i].innerText.indexOf(key) ||
+          pageHighlights[key][2] === nodeList[i].innerText.indexOf(key)
+        ) {
+          grabNoteIfExists(pageHighlights);
+          nodeList[i].innerHTML = nodeList[i].innerHTML.replace(
+            key,
+            `<span style="background-color: rgb(199, 255, 216);" class="el" title="${note}">` +
+              key +
+              "</span>"
+          );
+        }
       }
     }
   }

@@ -11,7 +11,7 @@ function isActive() {
 
 var highlights = {};
 var url = window.location.href.toString();
-var text, range, hTag, savedText, key, querySelector, hex;
+var text, range, hTag, savedText, key, querySelector, hex, storedColor;
 
 chrome.storage.local.get("active", res => {
   console.log(res);
@@ -76,8 +76,17 @@ function removeHighlight() {
   });
 }
 
+function grabHighlightColor() {
+  chrome.storage.local.get("highlights", results => {
+    if (results.highlights[url]) {
+      highlights = results.highlights;
+      storedColor = highlights[url]["color"] || "#CFFFDF";
+    }
+  });
+}
+
 function executeHighlight() {
-  document.execCommand("HiliteColor", false, "#CFFFDF");
+  document.execCommand("HiliteColor", false, storedColor);
 }
 
 function addClassToSelectedText() {
@@ -85,12 +94,10 @@ function addClassToSelectedText() {
 }
 function activateExtension() {
   document.designMode = "on";
+  grabHighlightColor();
   grabSelectedText();
   getBlockElementForQS();
-  if (
-    savedText.anchorNode.parentElement.style.backgroundColor ==
-    "rgb(199, 255, 216)"
-  ) {
+  if (savedText.anchorNode.parentElement.style.backgroundColor == storedColor) {
     removeHighlight();
   } else {
     executeHighlight();

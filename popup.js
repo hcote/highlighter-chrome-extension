@@ -120,6 +120,23 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       chrome.tabs.query(query, callback);
     });
+
+    // change color picker value AND update stored current url highlight color
+    var submitNewColor = document.getElementsByClassName("thisWebsite")[0];
+    submitNewColor.addEventListener("click", e => {
+      e.preventDefault();
+      var newColor = document.getElementsByClassName("colorPicker")[0].value;
+      var query = { active: true, currentWindow: true };
+      function callback(tabs) {
+        var currentTab = tabs[0];
+        chrome.storage.local.get("highlights", results => {
+          highlights = results.highlights;
+          highlights[currentTab.url]["color"] = newColor;
+          chrome.storage.local.set({ highlights }, () => {});
+        });
+      }
+      chrome.tabs.query(query, callback);
+    });
   });
 });
 
