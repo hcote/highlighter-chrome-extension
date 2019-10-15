@@ -55,9 +55,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // current URL styled as a color with a tooltip saying current URL
         var loader = document.getElementsByClassName("loader")[0];
         loader.style.display = "none";
-
         // var notesPs = Object.keys(results.highlights[currentTab.url])
         var sites = Object.keys(results.highlights).map(el => {
+          hlights = Object.keys(results.highlights[el]).map(elem => {
+            return `<p class="wrap">${elem}</p>`;
+          });
+
           // notes = Object.values(results.higlights[currentTab.url]);
           // if (notes) {
           //   return `<details>
@@ -67,15 +70,14 @@ document.addEventListener("DOMContentLoaded", function() {
           // } else {
           //   return `<summary>${el}</summary>`;
           // }
+
           return `<details class="detail">
                 <summary>${el}<i class='fa fa-chevron-down'></i><a target="_blank" href="${el}"><i class='fa fa-external-link'></i></a></summary>
-                ${(hlights = Object.keys(results.highlights[el]).map(elem => {
-                  return `<p class="wrap">${elem}</p>`;
-                }))}
-                <p>${JSON.stringify(results.highlights)}</p>
+                ${hlights.join("")}
               </details>
               <hr />`;
         });
+        // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
         Object.keys(results.highlights[currentTab.url]).length > 0
           ? // need the .join('') or else elements will render with commas between them
             (notesDiv.innerHTML = sites.join(""))
