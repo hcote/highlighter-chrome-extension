@@ -1,5 +1,5 @@
 var url = window.location.href.toString();
-var notes;
+var notes, hlights;
 
 // EXPAND NOTES VIEW
 var exp = document.getElementById("expand");
@@ -7,6 +7,8 @@ var exp = document.getElementById("expand");
 function expand() {
   var faExp = document.getElementsByClassName("fa-expand")[0];
   var faCom = document.getElementsByClassName("fa-compress")[0];
+  var sb = document.getElementsByClassName("searchBar")[0];
+  sb.classList.add("wide-search");
   faExp.style.display = "none";
   faCom.style.display = "block";
   document.body.classList.add("wide-body");
@@ -18,6 +20,8 @@ var com = document.getElementById("compress");
 function compress() {
   var faExp = document.getElementsByClassName("fa-expand")[0];
   var faCom = document.getElementsByClassName("fa-compress")[0];
+  var sb = document.getElementsByClassName("searchBar")[0];
+  sb.classList.remove("wide-search");
   faExp.style.display = "block";
   faCom.style.display = "none";
   document.body.classList.remove("wide-body");
@@ -44,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
         var searchDiv = document.getElementsByClassName("searchDiv")[0];
         searchDiv.style.display = "block";
 
-        var urlHeader = document.getElementsByClassName("url-header")[0];
-        urlHeader.style.display = "block";
-        urlHeader.innerHTML = `${currentTab.url}`;
+        // var urlHeader = document.getElementsByClassName("url-header")[0];
+        // urlHeader.style.display = "block";
+        // urlHeader.innerHTML = `${currentTab.url}`;
         // all URLs listed as details
         // current URL styled as a color with a tooltip saying current URL
         var loader = document.getElementsByClassName("loader")[0];
@@ -64,9 +68,13 @@ document.addEventListener("DOMContentLoaded", function() {
           //   return `<summary>${el}</summary>`;
           // }
           return `<details class="detail">
-                <summary>${el}<a target="_blank" href="${el}"><i class="fa fa-external-link"></i></a></summary>
-                <p class="wrap">${Object.keys(el)}</p>
-              </details>`;
+                <summary>${el}<i class='fa fa-chevron-down'></i><a target="_blank" href="${el}"><i class='fa fa-external-link'></i></a></summary>
+                ${(hlights = Object.keys(results.highlights[el]).map(elem => {
+                  return `<p class="wrap">${elem}</p>`;
+                }))}
+                <p>${JSON.stringify(results.highlights)}</p>
+              </details>
+              <hr />`;
         });
         Object.keys(results.highlights[currentTab.url]).length > 0
           ? // need the .join('') or else elements will render with commas between them
