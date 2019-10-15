@@ -20,8 +20,6 @@ var com = document.getElementById("compress");
 function compress() {
   var faExp = document.getElementsByClassName("fa-expand")[0];
   var faCom = document.getElementsByClassName("fa-compress")[0];
-  var sb = document.getElementsByClassName("searchBar")[0];
-  sb.classList.remove("wide-search");
   faExp.style.display = "block";
   faCom.style.display = "none";
   document.body.classList.remove("wide-body");
@@ -38,62 +36,89 @@ document.addEventListener("DOMContentLoaded", function() {
   tab2.addEventListener("click", () => {
     openTab(event, "notes");
     chrome.storage.local.get("highlights", results => {
-      // query for current tab URL
-      var query = { active: true, currentWindow: true };
-      function callback(tabs) {
-        var currentTab = tabs[0];
-        var notesDiv = document.getElementsByClassName("notesDiv")[0];
-        notesDiv.style.display = "block";
+      var notesDiv = document.getElementsByClassName("notesDiv")[0];
+      notesDiv.style.display = "block";
 
-        var searchDiv = document.getElementsByClassName("searchDiv")[0];
-        searchDiv.style.display = "block";
+      var searchDiv = document.getElementsByClassName("searchDiv")[0];
+      searchDiv.style.display = "block";
 
-        // var urlHeader = document.getElementsByClassName("url-header")[0];
-        // urlHeader.style.display = "block";
-        // urlHeader.innerHTML = `${currentTab.url}`;
-        // all URLs listed as details
-        // current URL styled as a color with a tooltip saying current URL
-        var loader = document.getElementsByClassName("loader")[0];
-        loader.style.display = "none";
-        // var notesPs = Object.keys(results.highlights[currentTab.url])
-        var sites = Object.keys(results.highlights).map(el => {
-          hlights = Object.keys(results.highlights[el]).map(elem => {
-            return `<p class="wrap">${elem}</p>`;
-          });
+      // var urlHeader = document.getElementsByClassName("url-header")[0];
+      // urlHeader.style.display = "block";
+      // urlHeader.innerHTML = `${currentTab.url}`;
+      // all URLs listed as details
+      // current URL styled as a color with a tooltip saying current URL
+      var loader = document.getElementsByClassName("loader")[0];
+      loader.style.display = "none";
+      // var notesPs = Object.keys(results.highlights[currentTab.url])
+      var sites = Object.keys(results.highlights).map(el => {
+        hlights = Object.keys(results.highlights[el]).map(elem => {
+          return `<p class="wrap highlights" style="text-align: left">${elem}</p>`;
+        });
 
-          // notes = Object.values(results.higlights[currentTab.url]);
-          // if (notes) {
-          //   return `<details>
-          //   <summary>${el}<summary>
-          //   <p>${notes}</p>
-          //   </details>`;
-          // } else {
-          //   return `<summary>${el}</summary>`;
-          // }
+        // notes = Object.values(results.higlights[currentTab.url]);
+        // if (notes) {
+        //   return `<details>
+        //   <summary>${el}<summary>
+        //   <p>${notes}</p>
+        //   </details>`;
+        // } else {
+        //   return `<summary>${el}</summary>`;
+        // }
 
-          return `<details class="detail">
-                <summary>${el}<i class='fa fa-chevron-down'></i><a target="_blank" href="${el}"><i class='fa fa-external-link'></i></a></summary>
+        return `<details class="detail">
+                <a target="_blank" href="${el}"><i class='fa fa-external-link'></i></a>
+                <summary>${el}<i class='fa fa-chevron-down'></i></summary>
                 ${hlights.join("")}
               </details>
               <hr />`;
-        });
-        // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
-        Object.keys(results.highlights[currentTab.url]).length > 0
-          ? // need the .join('') or else elements will render with commas between them
-            (notesDiv.innerHTML = sites.join(""))
-          : (notesDiv.innerHTML = `No notes stored for ${currentTab.url}`);
-      }
-      chrome.tabs.query(query, callback);
+      });
+      // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
+      Object.keys(results.highlights).length > 0
+        ? // need the .join('') or else elements will render with commas between them
+          (notesDiv.innerHTML = sites.join(""))
+        : (notesDiv.innerHTML = `No notes stored for ${currentTab.url}`);
+      // SEARCH FUNCTION
+      var search = document.getElementsByClassName("searchBar")[0];
+      search.addEventListener("keyup", () => {
+        var val = search.value;
+        alert(notesDiv.innerText);
+        // sites.filter(el => {
+        //   if (el.indexOf(val) < 0) {
+        //     el.style.display = "none";
+        //   }
+        // });
+      });
     });
   });
   var tab3 = document.getElementsByClassName("tablinks")[2];
   tab3.addEventListener("click", () => {
     openTab(event, "color");
+
+    // change highlight color in example text
     var colorPicker = document.getElementsByClassName("colorPicker")[0];
+    colorPicker.addEventListener("change", e => {
+      console.log(e);
+      var example = document.getElementsByClassName("example-text")[0];
+      example.style.backgroundColor = colorPicker.value;
+    });
+
+    // reset color picker value AND update stored current url highlight color
     var resetColor = document.getElementsByClassName("reset")[0];
     resetColor.addEventListener("click", e => {
       e.preventDefault();
       colorPicker.value = "#CFFFDF";
+      var example = document.getElementsByClassName("example-text")[0];
+      example.style.backgroundColor = colorPicker.value;
+      var query = { active: true, currentWindow: true };
+      function callback(tabs) {
+        var currentTab = tabs[0];
+        chrome.storage.local.get("highlights", results => {
+          highlights = results.highlights;
+          highlights[currentTab.url]["color"] = colorPicker.value;
+          chrome.storage.local.set({ highlights }, () => {});
+        });
+      }
+      chrome.tabs.query(query, callback);
     });
   });
 });

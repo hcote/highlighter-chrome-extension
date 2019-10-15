@@ -11,7 +11,7 @@ function searchForHighlights() {
         return;
       } else {
         applyHighlights(results.highlights[url]);
-        console.log(Object.values(results.highlights[url]));
+        console.log(results);
         addPromptToTargets();
       }
     }

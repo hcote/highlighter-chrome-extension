@@ -1,5 +1,5 @@
 document.body.onmouseup = activateExtension();
-// document.body.onmouseup = showTT();
+document.body.addEventListener("mouseup", showTT);
 
 // ////////////////////////////////////////////////
 function isActive() {
@@ -100,31 +100,38 @@ function activateExtension() {
   document.designMode = "off";
 }
 
-// function showTT() {
-//   if (window.getSelection().getRangeAt(0)) {
-//     var sel = window.getSelection();
-//     var sel_text = sel.toString();
-//     var span = document.createElement("SPAN");
-//     span.classList.add("toHL");
-//     span.innerText = sel_text;
-//     var range = window.getSelection().getRangeAt(0);
-//     range.deleteContents();
-//     range.insertNode(span);
+function showTT() {
+  console.log("d");
 
-//     var tt = document.createElement("DIV");
-//     tt.innerHTML = "Highlight";
-//     tt.style.textAlign = "center";
-//     tt.style.borderRadius = "8px";
-//     tt.style.padding = "5px";
-//     tt.style.fontSize = "14px";
-//     // tt.style.visibility = "hidden";
-//     tt.style.backgroundColor = "rgba(38, 39, 41)";
-//     tt.style.color = "aliceblue";
-//     tt.style.position = "absolute";
-//     tt.id = "tt";
-//     document.getElementsByClassName("toHL")[0].appendChild(tt);
-//   }
-//   document.getElementById("tt").addEventListener("click", function() {
-//     this.style.visibility = "hidden";
-//   });
-// }
+  var sel = document.getSelection();
+  var range = sel.getRangeAt(0);
+  var rect = sel.getRangeAt(0).getBoundingClientRect();
+
+  var div = document.createElement("span"); // make box
+  div.style.backgroundColor = "#000"; // with outline
+  div.style.color = "fff";
+  div.innerHTML = "Highlight";
+  div.style.position = "absolute";
+  div.style.bottom = rect.bottom + "px";
+  div.style.left = rect.left + "px";
+
+  document.body.appendChild(div);
+
+  // var tt = document.createElement("DIV");
+  // tt.innerHTML = "Highlight";
+  // tt.classList.add("fa fa-pencil");
+  // tt.style.textAlign = "center";
+  // tt.style.borderRadius = "8px";
+  // tt.style.padding = "5px";
+  // tt.style.fontSize = "14px";
+  // // tt.style.visibility = "hidden";
+  // tt.style.backgroundColor = "rgba(38, 39, 41)";
+  // tt.style.color = "aliceblue";
+  // tt.style.position = "absolute";
+  // tt.id = "tt";
+  // document.getElementsByClassName("toHL")[0].appendChild(tt);
+  // }
+  // document.getElementById("tt").addEventListener("click", function() {
+  //   this.style.visibility = "hidden";
+  // });
+}
