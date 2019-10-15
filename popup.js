@@ -89,6 +89,12 @@ document.addEventListener("DOMContentLoaded", function() {
   var tab3 = document.getElementsByClassName("tablinks")[2];
   tab3.addEventListener("click", () => {
     openTab(event, "color");
+    var colorPicker = document.getElementsByClassName("colorPicker")[0];
+    var resetColor = document.getElementsByClassName("reset")[0];
+    resetColor.addEventListener("click", e => {
+      e.preventDefault();
+      colorPicker.value = "#CFFFDF";
+    });
   });
 });
 
