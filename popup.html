@@ -39,12 +39,19 @@
     <div id="notes" class="tabcontent" style="display:none">
       <div class="loader"></div>
       <div class="searchDiv">
+        <div id="expand">
+          <i class="fa fa-expand"></i>
+        </div>
+        <div id="compress">
+          <i class="fa fa-compress"></i>
+        </div>
         <input
           type="text"
           placeholder="Search highlights..."
           class="searchBar"
         /><span><i class="fa fa-search"></i></span>
       </div>
+      <h4 class="url-header wrap"></h4>
       <div class="notesDiv"></div>
     </div>
 
@@ -52,9 +59,10 @@
     <div id="color" class="tabcontent" style="display:none">
       <form>
         <h3>Select a custom highlight color for this website:</h3>
-        <input type="color" name="favcolor" value="#CFFFDF" /><br /><br />
-        <input type="submit" value="Submit" />
-        <input type="submit" value="Reset" />
+        <input type="color" name="favcolor" value="#CFFFDF" />
+        <input type="submit" value="Reset to #CFFFDF" /><br /><br />
+        <input type="submit" value="Change For This Website Only" /><br />
+        <input type="submit" value="Set As Default" />
       </form>
       <hr style="margin: 30px 10px" />
       <div>

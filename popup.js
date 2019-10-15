@@ -1,6 +1,30 @@
 var url = window.location.href.toString();
 var notes;
 
+// EXPAND NOTES VIEW
+var exp = document.getElementById("expand");
+
+function expand() {
+  var faExp = document.getElementsByClassName("fa-expand")[0];
+  var faCom = document.getElementsByClassName("fa-compress")[0];
+  faExp.style.display = "none";
+  faCom.style.display = "block";
+  document.body.classList.add("wide-body");
+}
+
+exp.addEventListener("click", expand);
+
+var com = document.getElementById("compress");
+function compress() {
+  var faExp = document.getElementsByClassName("fa-expand")[0];
+  var faCom = document.getElementsByClassName("fa-compress")[0];
+  faExp.style.display = "block";
+  faCom.style.display = "none";
+  document.body.classList.remove("wide-body");
+}
+
+com.addEventListener("click", compress);
+
 document.addEventListener("DOMContentLoaded", function() {
   var tab1 = document.getElementsByClassName("tablinks")[0];
   tab1.addEventListener("click", () => {
@@ -13,31 +37,40 @@ document.addEventListener("DOMContentLoaded", function() {
       // query for current tab URL
       var query = { active: true, currentWindow: true };
       function callback(tabs) {
+        var currentTab = tabs[0];
         var notesDiv = document.getElementsByClassName("notesDiv")[0];
         notesDiv.style.display = "block";
+
         var searchDiv = document.getElementsByClassName("searchDiv")[0];
         searchDiv.style.display = "block";
+
+        var urlHeader = document.getElementsByClassName("url-header")[0];
+        urlHeader.style.display = "block";
+        urlHeader.innerHTML = `${currentTab.url}`;
+        // all URLs listed as details
+        // current URL styled as a color with a tooltip saying current URL
         var loader = document.getElementsByClassName("loader")[0];
         loader.style.display = "none";
-        var currentTab = tabs[0];
-        var notesPs = ["grenjfe", "fwejw", "fonweo"]
-          // var notesPs = Object.keys(results.highlights[currentTab.url])
-          .reverse()
-          .map(el => {
-            // notes = Object.values(results.higlights[currentTab.url]);
-            // if (notes) {
-            //   return `<details>
-            //   <summary>${el}<summary>
-            //   <p>${notes}</p>
-            //   </details>`;
-            // } else {
-            //   return `<p>${el}</p>`;
-            // }
-            return `<details><summary>${el}</summary></details>`;
-          });
+
+        // var notesPs = Object.keys(results.highlights[currentTab.url])
+        var sites = Object.keys(results.highlights).map(el => {
+          // notes = Object.values(results.higlights[currentTab.url]);
+          // if (notes) {
+          //   return `<details>
+          //   <summary>${el}<summary>
+          //   <p>${notes}</p>
+          //   </details>`;
+          // } else {
+          //   return `<summary>${el}</summary>`;
+          // }
+          return `<details class="detail">
+                <summary>${el}<a target="_blank" href="${el}"><i class="fa fa-external-link"></i></a></summary>
+                <p class="wrap">${Object.keys(el)}</p>
+              </details>`;
+        });
         Object.keys(results.highlights[currentTab.url]).length > 0
           ? // need the .join('') or else elements will render with commas between them
-            (notesDiv.innerHTML = notesPs.join(""))
+            (notesDiv.innerHTML = sites.join(""))
           : (notesDiv.innerHTML = `No notes stored for ${currentTab.url}`);
       }
       chrome.tabs.query(query, callback);
