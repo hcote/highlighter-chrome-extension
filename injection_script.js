@@ -75,9 +75,15 @@ function addClassToSelectedText() {
 function activateExtension() {
   document.designMode = "on";
   chrome.storage.local.get("highlights", results => {
-    if (results.highlights[url]) {
+    if (
+      results.highlights != undefined &&
+      results.highlights[url] != undefined &&
+      results.highlights[url]["color"] != undefined
+    ) {
       highlights = results.highlights;
       storedColor = highlights[url]["color"] || "#CFFFDF";
+    } else {
+      storedColor = "#CFFFDF";
     }
     grabSelectedText();
     getBlockElementForQS();

@@ -27,11 +27,68 @@ function compress() {
 
 com.addEventListener("click", compress);
 
+function toggle() {
+  var checkbox = document.getElementsByClassName("checkbox")[0];
+  chrome.storage.local.get("active", results => {
+    // alert(`${JSON.stringify(results.active)}`);
+    if (results.active.active || results.active) {
+      alert("was on, now off");
+      var on = document.getElementsByClassName("on")[0];
+      on.style.display = "none";
+      var off = document.getElementsByClassName("off")[0];
+      off.style.display = "block";
+      chrome.storage.local.set({ active: false }, () => {});
+      checkbox.removeAttribute("checked");
+    } else {
+      alert("was off, now on");
+      var on = document.getElementsByClassName("on")[0];
+      on.style.display = "block";
+      var off = document.getElementsByClassName("off")[0];
+      off.style.display = "none";
+      chrome.storage.local.set({ active: true }, () => {});
+      checkbox.setAttribute("checked", true);
+    }
+  });
+}
+
+function toggle2() {
+  var checkbox = document.getElementsByClassName("checkbox")[0];
+  chrome.storage.local.get("active", results => {
+    if (results.active.active || results.active) {
+      var on = document.getElementsByClassName("on")[0];
+      on.style.display = "block";
+      var off = document.getElementsByClassName("off")[0];
+      off.style.display = "none";
+      checkbox.setAttribute("checked", true);
+    } else {
+      var on = document.getElementsByClassName("on")[0];
+      on.style.display = "none";
+      var off = document.getElementsByClassName("off")[0];
+      off.style.display = "block";
+      checkbox.removeAttribute("checked");
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+  // chrome.storage.local.get("active", results => {
+  //   if (results.active) {
+
+  //   }
+  // });
+
+  toggle2();
+  var checkbox = document.getElementsByClassName("checkbox")[0];
+
+  checkbox.addEventListener("click", () => {
+    toggle();
+  });
+
   var tab1 = document.getElementsByClassName("tablinks")[0];
   tab1.addEventListener("click", () => {
     openTab(event, "toggle");
   });
+
   var tab2 = document.getElementsByClassName("tablinks")[1];
   tab2.addEventListener("click", () => {
     openTab(event, "notes");
@@ -73,15 +130,19 @@ document.addEventListener("DOMContentLoaded", function() {
               <hr />`;
       });
       // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
-      Object.keys(results.highlights).length > 0
-        ? // need the .join('') or else elements will render with commas between them
-          (notesDiv.innerHTML = sites.join(""))
-        : (notesDiv.innerHTML = `No notes stored for ${currentTab.url}`);
+      if (Object.keys(results.highlights).length > 0) {
+        // need the .join('') or else elements will render with commas between them
+        notesDiv.innerHTML = sites.join("");
+      } else {
+        notesDiv.innerHTML = `No highlights stored yet. Visit <a target="_blank" href="https://chrome.google.com/webstore/detail/markit-online-highlighter/oilpcbohncpdjdadofhbldfmojneciop">
+              here
+            </a> to learn how to use it.`;
+      }
       // SEARCH FUNCTION
       var search = document.getElementsByClassName("searchBar")[0];
       search.addEventListener("keyup", () => {
         var val = search.value;
-        alert(notesDiv.innerText);
+        // alert(notesDiv.innerText);
         // sites.filter(el => {
         //   if (el.indexOf(val) < 0) {
         //     el.style.display = "none";
@@ -108,7 +169,9 @@ document.addEventListener("DOMContentLoaded", function() {
       var currentTab = tabs[0];
       chrome.storage.local.get("highlights", results => {
         highlights = results.highlights;
-        colorPicker.value = highlights[currentTab.url]["color"];
+        if (highlights[currentTab.url]) {
+          colorPicker.value = highlights[currentTab.url]["color"];
+        }
         var example = document.getElementsByClassName("example-text")[0];
         example.style.backgroundColor = colorPicker.value;
       });
@@ -146,6 +209,8 @@ document.addEventListener("DOMContentLoaded", function() {
           highlights = results.highlights;
           highlights[currentTab.url]["color"] = newColor;
           chrome.storage.local.set({ highlights }, () => {});
+          document.getElementsByClassName("success-msg")[0].style.display =
+            "block";
         });
       }
       chrome.tabs.query(query, callback);
@@ -166,32 +231,6 @@ function openTab(evt, tabName) {
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
-}
-
-var t = document.getElementsByClassName("slider")[0];
-t.addEventListener("click", () => {
-  activate();
-});
-
-// TOGGLE
-function activate() {
-  chrome.storage.local.get("active", results => {
-    if (results.active) {
-      chrome.storage.local.set({ active: false }, () => {
-        var on = document.getElementsByClassName("on")[0];
-        on.style.display = "none";
-        var off = document.getElementsByClassName("off")[0];
-        off.style.display = "block";
-      });
-    } else {
-      chrome.storage.local.set({ active: true }, () => {
-        var on = document.getElementsByClassName("on")[0];
-        on.style.display = "block";
-        var off = document.getElementsByClassName("off")[0];
-        off.style.display = "none";
-      });
-    }
-  });
 }
 
 // GET NOTES

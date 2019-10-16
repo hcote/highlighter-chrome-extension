@@ -17,7 +17,7 @@
         Toggle On / Off
       </button>
       <button class="tablinks">
-        Notes
+        Show Notes
       </button>
       <button class="tablinks">
         Highlight Color
@@ -28,7 +28,7 @@
     <div id="toggle" class="tabcontent show">
       <h3>Activate or deactivate the extension</h3>
       <label class="switch">
-        <input type="checkbox" checked />
+        <input type="checkbox" class="checkbox" checked />
         <span class="slider round"></span>
       </label>
       <p class="on">On</p>
@@ -60,7 +60,7 @@
     <div id="color" class="tabcontent" style="display:none">
       <form>
         <h3>Select a custom highlight color for this website:</h3>
-        <input type="color" name="favcolor" class="colorPicker" />
+        <input type="color" class="colorPicker" value="#CFFFDF" />
         <input type="submit" value="Reset to #CFFFDF" class="reset" />
         <br /><br />
         <input
@@ -69,6 +69,9 @@
           value="Change For This Website Only"
         />
       </form>
+      <div class="success-msg" style="display: none; margin-top: 12px;">
+        Success! Refresh to see changes.
+      </div>
       <hr style="margin: 30px 10px" />
       <div>
         <h3>Example</h3>

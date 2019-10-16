@@ -115,3 +115,8 @@ how to only highlight on one block element
 
 Nice to have's:
 - fa-chevron-down arrow flip when clicked (so it's facing up when notes are showing)
+
+
+
+
+FIX - CHANGING COLOR FOR WEBSITE WITHOUT HIGHLIGHTS ALREADY
