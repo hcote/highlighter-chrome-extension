@@ -102,6 +102,19 @@ document.addEventListener("DOMContentLoaded", function() {
       example.style.backgroundColor = colorPicker.value;
     });
 
+    // make color picker input default value set to the highlight color for current url
+    var query = { active: true, currentWindow: true };
+    function callback(tabs) {
+      var currentTab = tabs[0];
+      chrome.storage.local.get("highlights", results => {
+        highlights = results.highlights;
+        colorPicker.value = highlights[currentTab.url]["color"];
+        var example = document.getElementsByClassName("example-text")[0];
+        example.style.backgroundColor = colorPicker.value;
+      });
+    }
+    chrome.tabs.query(query, callback);
+
     // reset color picker value AND update stored current url highlight color
     var resetColor = document.getElementsByClassName("reset")[0];
     resetColor.addEventListener("click", e => {
