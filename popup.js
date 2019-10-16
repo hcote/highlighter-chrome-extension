@@ -109,7 +109,8 @@ document.addEventListener("DOMContentLoaded", function() {
       // var notesPs = Object.keys(results.highlights[currentTab.url])
       var sites = Object.keys(results.highlights).map(el => {
         hlights = Object.keys(results.highlights[el]).map(elem => {
-          return `<p class="wrap highlights" style="text-align: left">${elem}</p>`;
+          if (!(elem === "color"))
+            return `<p class="wrap highlights" style="text-align: left">${elem}</p>`;
         });
 
         // notes = Object.values(results.higlights[currentTab.url]);
