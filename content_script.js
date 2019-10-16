@@ -60,7 +60,9 @@ function applyHighlights(pageHighlights) {
           grabNoteIfExists(pageHighlights);
           nodeList[i].innerHTML = nodeList[i].innerHTML.replace(
             key,
-            `<span style="background-color: rgb(199, 255, 216);" class="el" title="${note}">` +
+            `<span style="background-color: ${
+              pageHighlights["color"]
+            };" class="el" title="${note}">` +
               key +
               "</span>"
           );

@@ -79,7 +79,6 @@ function activateExtension() {
       highlights = results.highlights;
       storedColor = highlights[url]["color"] || "#CFFFDF";
     }
-
     grabSelectedText();
     getBlockElementForQS();
     if (
