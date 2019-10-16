@@ -5,7 +5,7 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab", "tabs", "http://*/", "https://*/"],
   "commands": {
     "highlight_text": {
       "suggested_key": {

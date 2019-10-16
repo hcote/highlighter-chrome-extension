@@ -1,4 +1,12 @@
-document.getElementsByTagName("body")[0].onmouseup = activateExtension();
+chrome.storage.local.get("active", results => {
+  console.log(results.active);
+  if (results.active) {
+    // document.getElementsByTagName("body")[0].onmouseup = activateExtension();
+    document.body.addEventListener("mouseup", () => {
+      showTT();
+    });
+  }
+});
 
 var highlights = {};
 var url = window.location.href.toString();
@@ -102,10 +110,6 @@ function activateExtension() {
 
 // document.body.addEventListener("mouseup", showTT);
 
-chrome.storage.local.get("active", res => {
-  console.log(res);
-});
-
 // // ////////////////////////////////////////////////
 // function isActive() {
 //   chrome.storage.local.get("active", results => {
@@ -123,38 +127,65 @@ chrome.storage.local.get("active", res => {
 // });
 // }
 
-// function showTT() {
-//   console.log("d");
+function showTT() {
+  var sel = window.getSelection(),
+    range = sel.getRangeAt(0),
+    s,
+    e;
+  if (range.toString().length > 0) {
+    console.log("you highlighted text");
+    console.log(range.innerHTML);
+    function getBlockNode(r) {
+      // if item is block element, grab it to compare
+      if (
+        r.startContainer.parentElement != "SPAN" ||
+        r.startContainer.parentElement != "A" ||
+        r.startContainer.parentElement != "CODE" ||
+        r.startContainer.parentElement != "STRONG" ||
+        r.startContainer.parentElement != "EM" ||
+        r.startContainer.parentElement != "I"
+      ) {
+        s = r.startContainer.parentElement;
+        e = r.endContainer.parentElement;
+      } else {
+        // if item is inline, go again
+        getBlockNode(r);
+      }
+    }
+    getBlockNode(range);
+    if (s.isSameNode(e)) {
+      activateExtension();
+    }
+  } else {
+    console.log("no highlight found");
+  }
+  // var rect = sel.getRangeAt(0).getBoundingClientRect();
 
-//   var sel = document.getSelection();
-//   var range = sel.getRangeAt(0);
-//   var rect = sel.getRangeAt(0).getBoundingClientRect();
+  // var div = document.createElement("span"); // make box
+  // div.style.backgroundColor = "#000"; // with outline
+  // div.style.color = "fff";
+  // div.innerHTML = "Highlight";
+  // div.style.position = "absolute";
+  // div.style.bottom = rect.bottom + "px";
+  // div.style.left = rect.left + "px";
 
-//   var div = document.createElement("span"); // make box
-//   div.style.backgroundColor = "#000"; // with outline
-//   div.style.color = "fff";
-//   div.innerHTML = "Highlight";
-//   div.style.position = "absolute";
-//   div.style.bottom = rect.bottom + "px";
-//   div.style.left = rect.left + "px";
+  // document.body.appendChild(div);
 
-//   document.body.appendChild(div);
-
-//   // var tt = document.createElement("DIV");
-//   // tt.innerHTML = "Highlight";
-//   // tt.classList.add("fa fa-pencil");
-//   // tt.style.textAlign = "center";
-//   // tt.style.borderRadius = "8px";
-//   // tt.style.padding = "5px";
-//   // tt.style.fontSize = "14px";
-//   // // tt.style.visibility = "hidden";
-//   // tt.style.backgroundColor = "rgba(38, 39, 41)";
-//   // tt.style.color = "aliceblue";
-//   // tt.style.position = "absolute";
-//   // tt.id = "tt";
-//   // document.getElementsByClassName("toHL")[0].appendChild(tt);
-//   // }
-//   // document.getElementById("tt").addEventListener("click", function() {
-//   //   this.style.visibility = "hidden";
-//   // });
-// }
+  // var tt = document.createElement("DIV");
+  // tt.innerHTML = "Highlight";
+  // tt.classList.add("fa fa-pencil");
+  // tt.style.textAlign = "center";
+  // tt.style.borderRadius = "8px";
+  // tt.style.padding = "5px";
+  // tt.style.fontSize = "14px";
+  // // tt.style.visibility = "hidden";
+  // tt.style.backgroundColor = "rgba(38, 39, 41)";
+  // tt.style.color = "aliceblue";
+  // tt.style.position = "absolute";
+  // tt.id = "tt";
+  // document.getElementsByClassName("toHL")[0].appendChild(tt);
+  // }
+  // document.getElementById("tt").addEventListener("click", function() {
+  //   this.style.visibility = "hidden";
+  // });
+}

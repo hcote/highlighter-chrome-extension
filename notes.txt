@@ -120,3 +120,15 @@ Nice to have's:
 
 
 FIX - CHANGING COLOR FOR WEBSITE WITHOUT HIGHLIGHTS ALREADY
+
+FIX - if you set a highlight color for a website but dont have
+any actual highlights it will show up in your notes section
+bc technically the length is >0 bc color is in there DONE
+
+- need to display notes for highlights in notes ection\
+
+if (url.startswith "chrome") {
+    dont do anything
+} -- in permissions tab do not give permission to websites that start with chrome
+// error message in toggle screen saying the app does not 
+have access to this site

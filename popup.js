@@ -32,7 +32,6 @@ function toggle() {
   chrome.storage.local.get("active", results => {
     // alert(`${JSON.stringify(results.active)}`);
     if (results.active.active || results.active) {
-      alert("was on, now off");
       var on = document.getElementsByClassName("on")[0];
       on.style.display = "none";
       var off = document.getElementsByClassName("off")[0];
@@ -40,7 +39,6 @@ function toggle() {
       chrome.storage.local.set({ active: false }, () => {});
       checkbox.removeAttribute("checked");
     } else {
-      alert("was off, now on");
       var on = document.getElementsByClassName("on")[0];
       on.style.display = "block";
       var off = document.getElementsByClassName("off")[0];
@@ -122,13 +120,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // } else {
         //   return `<summary>${el}</summary>`;
         // }
-
-        return `<details class="detail">
-                <a target="_blank" href="${el}"><i class='fa fa-external-link'></i></a>
+        if (!(el === "color")) {
+          return `<details class="detail">
                 <summary>${el}<i class='fa fa-chevron-down'></i></summary>
+                <p class="highlights"><a target="_blank" href="${el}">Visit URL</a><i class='fa fa-external-link'></i></p>
                 ${hlights.join("")}
               </details>
               <hr />`;
+        }
       });
       // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
       if (Object.keys(results.highlights).length > 0) {
@@ -193,6 +192,11 @@ document.addEventListener("DOMContentLoaded", function() {
           highlights = results.highlights;
           highlights[currentTab.url]["color"] = colorPicker.value;
           chrome.storage.local.set({ highlights }, () => {});
+          document.getElementsByClassName(
+            "success-msg-reset"
+          )[0].style.display = "block";
+          document.getElementsByClassName("success-msg")[0].style.display =
+            "none";
         });
       }
       chrome.tabs.query(query, callback);
@@ -208,8 +212,16 @@ document.addEventListener("DOMContentLoaded", function() {
         var currentTab = tabs[0];
         chrome.storage.local.get("highlights", results => {
           highlights = results.highlights;
-          highlights[currentTab.url]["color"] = newColor;
+          if (!highlights[currentTab.url]) {
+            highlights[currentTab.url] = {};
+            highlights[currentTab.url]["color"] = newColor;
+          } else {
+            highlights[currentTab.url]["color"] = newColor;
+          }
           chrome.storage.local.set({ highlights }, () => {});
+          document.getElementsByClassName(
+            "success-msg-reset"
+          )[0].style.display = "none";
           document.getElementsByClassName("success-msg")[0].style.display =
             "block";
         });
