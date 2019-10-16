@@ -1,21 +1,8 @@
-document.body.onmouseup = activateExtension();
-document.body.addEventListener("mouseup", showTT);
-
-// ////////////////////////////////////////////////
-function isActive() {
-  chrome.storage.local.get("active", results => {
-    return results.active.active;
-  });
-}
-// ////////////////////////////////////////////////
+document.getElementsByTagName("body")[0].onmouseup = activateExtension();
 
 var highlights = {};
 var url = window.location.href.toString();
-var text, range, hTag, savedText, key, querySelector, hex, storedColor;
-
-chrome.storage.local.get("active", res => {
-  console.log(res);
-});
+var text, range, hTag, savedText, key, querySelector, hex;
 
 function getBlockElementForQS() {
   if (
@@ -76,69 +63,93 @@ function removeHighlight() {
   });
 }
 
-function grabHighlightColor() {
-  chrome.storage.local.get("highlights", results => {
-    if (results.highlights[url]) {
-      highlights = results.highlights;
-      storedColor = highlights[url]["color"] || "#CFFFDF";
-    }
-  });
-}
-
 function executeHighlight() {
+  console.log(storedColor);
   document.execCommand("HiliteColor", false, storedColor);
 }
 
 function addClassToSelectedText() {
   savedText.anchorNode.parentElement.className = "el";
 }
+
 function activateExtension() {
   document.designMode = "on";
-  grabHighlightColor();
-  grabSelectedText();
-  getBlockElementForQS();
-  if (savedText.anchorNode.parentElement.style.backgroundColor == storedColor) {
-    removeHighlight();
-  } else {
-    executeHighlight();
-    addClassToSelectedText();
-    saveHighlight();
-  }
-  document.designMode = "off";
+  chrome.storage.local.get("highlights", results => {
+    if (results.highlights[url]) {
+      highlights = results.highlights;
+      storedColor = highlights[url]["color"] || "#CFFFDF";
+    }
+
+    grabSelectedText();
+    getBlockElementForQS();
+    if (
+      savedText.anchorNode.parentElement.style.backgroundColor == storedColor
+    ) {
+      removeHighlight();
+    } else {
+      executeHighlight();
+      addClassToSelectedText();
+      saveHighlight();
+    }
+    document.designMode = "off";
+  });
 }
 
-function showTT() {
-  console.log("d");
+// document.body.addEventListener("mouseup", showTT);
 
-  var sel = document.getSelection();
-  var range = sel.getRangeAt(0);
-  var rect = sel.getRangeAt(0).getBoundingClientRect();
+chrome.storage.local.get("active", res => {
+  console.log(res);
+});
 
-  var div = document.createElement("span"); // make box
-  div.style.backgroundColor = "#000"; // with outline
-  div.style.color = "fff";
-  div.innerHTML = "Highlight";
-  div.style.position = "absolute";
-  div.style.bottom = rect.bottom + "px";
-  div.style.left = rect.left + "px";
+// // ////////////////////////////////////////////////
+// function isActive() {
+//   chrome.storage.local.get("active", results => {
+//     return results.active.active;
+//   });
+// }
+// // ////////////////////////////////////////////////
 
-  document.body.appendChild(div);
+// function grabHighlightColor() {
+// chrome.storage.local.get("highlights", results => {
+//   if (results.highlights[url]) {
+//     highlights = results.highlights;
+//     storedColor = highlights[url]["color"] || "#CFFFDF";
+//   }
+// });
+// }
 
-  // var tt = document.createElement("DIV");
-  // tt.innerHTML = "Highlight";
-  // tt.classList.add("fa fa-pencil");
-  // tt.style.textAlign = "center";
-  // tt.style.borderRadius = "8px";
-  // tt.style.padding = "5px";
-  // tt.style.fontSize = "14px";
-  // // tt.style.visibility = "hidden";
-  // tt.style.backgroundColor = "rgba(38, 39, 41)";
-  // tt.style.color = "aliceblue";
-  // tt.style.position = "absolute";
-  // tt.id = "tt";
-  // document.getElementsByClassName("toHL")[0].appendChild(tt);
-  // }
-  // document.getElementById("tt").addEventListener("click", function() {
-  //   this.style.visibility = "hidden";
-  // });
-}
+// function showTT() {
+//   console.log("d");
+
+//   var sel = document.getSelection();
+//   var range = sel.getRangeAt(0);
+//   var rect = sel.getRangeAt(0).getBoundingClientRect();
+
+//   var div = document.createElement("span"); // make box
+//   div.style.backgroundColor = "#000"; // with outline
+//   div.style.color = "fff";
+//   div.innerHTML = "Highlight";
+//   div.style.position = "absolute";
+//   div.style.bottom = rect.bottom + "px";
+//   div.style.left = rect.left + "px";
+
+//   document.body.appendChild(div);
+
+//   // var tt = document.createElement("DIV");
+//   // tt.innerHTML = "Highlight";
+//   // tt.classList.add("fa fa-pencil");
+//   // tt.style.textAlign = "center";
+//   // tt.style.borderRadius = "8px";
+//   // tt.style.padding = "5px";
+//   // tt.style.fontSize = "14px";
+//   // // tt.style.visibility = "hidden";
+//   // tt.style.backgroundColor = "rgba(38, 39, 41)";
+//   // tt.style.color = "aliceblue";
+//   // tt.style.position = "absolute";
+//   // tt.id = "tt";
+//   // document.getElementsByClassName("toHL")[0].appendChild(tt);
+//   // }
+//   // document.getElementById("tt").addEventListener("click", function() {
+//   //   this.style.visibility = "hidden";
+//   // });
+// }
