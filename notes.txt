@@ -132,3 +132,10 @@ if (url.startswith "chrome") {
 } -- in permissions tab do not give permission to websites that start with chrome
 // error message in toggle screen saying the app does not 
 have access to this site
+
+recursively find the parentElement tagName that is a block element 
+for the startContainer and the endContainer and compare them 
+range.startContainer.parentElement.tagName == DIV ? 
+range.startContainer.parentElement.parentElement.tagName == DIV?
+
+need a custom font

@@ -36,6 +36,8 @@ function toggle() {
       on.style.display = "none";
       var off = document.getElementsByClassName("off")[0];
       off.style.display = "block";
+      var msg = document.getElementsByClassName("toggle-msg")[0];
+      msg.style.display = "block";
       chrome.storage.local.set({ active: false }, () => {});
       checkbox.removeAttribute("checked");
     } else {
@@ -43,6 +45,8 @@ function toggle() {
       on.style.display = "block";
       var off = document.getElementsByClassName("off")[0];
       off.style.display = "none";
+      var msg = document.getElementsByClassName("toggle-msg")[0];
+      msg.style.display = "block";
       chrome.storage.local.set({ active: true }, () => {});
       checkbox.setAttribute("checked", true);
     }

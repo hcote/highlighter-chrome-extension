@@ -1,10 +1,9 @@
 body {
   width: 300px;
   height: 500px;
-  background-color: rgba(97, 152, 207, 0.3);
+  background-color: rgba(97, 152, 207, 0.25);
   transition: 0.3s;
-  /* resize: both;
-  overflow: auto; */
+  font-family: "Montserrat", sans-serif;
 }
 
 .wide-body {
@@ -14,14 +13,20 @@ body {
 
 /* NAV */
 .tab {
-  background-color: rgba(0, 0, 0, 0.8);
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  background: rgb(26, 26, 28);
+  background: radial-gradient(
+    circle,
+    rgba(70, 77, 91, 1) 0%,
+    rgba(64, 63, 65, 1) 76%
+  );
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
   padding: 10px 0;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  border: 1px solid transparent;
   text-align: center;
 }
 
@@ -40,6 +45,7 @@ body {
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Create an active/current tablink class */
@@ -120,7 +126,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.off {
+.off,
+.toggle-msg {
   display: none;
 }
 
@@ -163,6 +170,10 @@ input:checked + .slider:before {
   background-color: rgba(97, 152, 207, 0.3);
   padding: 6px;
   border-radius: 8px;
+}
+
+hr {
+  width: 78%;
 }
 
 details > summary {
