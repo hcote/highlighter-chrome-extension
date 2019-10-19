@@ -13,13 +13,13 @@ body {
 
 /* NAV */
 .tab {
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  background: rgb(26, 26, 28);
+  background-color: rgba(0, 0, 0, 0.8);
+  /* background: rgb(26, 26, 28);
   background: radial-gradient(
     circle,
     rgba(70, 77, 91, 1) 0%,
     rgba(64, 63, 65, 1) 76%
-  );
+  ); */
   left: 0;
   position: absolute;
   top: 0;
@@ -51,7 +51,7 @@ body {
 /* Create an active/current tablink class */
 button.tablinks.active,
 button:hover {
-  border-bottom: 1px solid aliceblue;
+  border-bottom: 1px solid #cfffdf;
   border-radius: 0px;
 }
 
@@ -231,12 +231,37 @@ summary {
 }
 
 .highlights {
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
+  padding-top: 12px;
+}
+
+.url:visited,
+a:visited,
+a,
+.url {
+  color: #2196f3;
+}
+
+.url {
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-right: 6px;
+}
+
+.notes-url {
+  width: 86%;
+  margin: auto;
+  text-align: left;
 }
 
 .spacer {
   height: 30px;
+}
+
+.num {
+  color: #0f2517;
 }
 
 /* highlight color */
@@ -265,4 +290,50 @@ summary {
 
 .example-text {
   background-color: #cfffdf;
+}
+
+/* FOOTER */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0px;
+  height: 40px;
+  text-align: center;
+  background-color: #000;
+  color: aliceblue;
+  font-size: 14px;
+}
+
+.footer > p {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 0px;
+}
+
+.instructions {
+  display: none;
+  width: 90%;
+  margin: auto;
+}
+
+.instructions > ol > li {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.instructions-down {
+  display: none;
+  color: aliceblue;
+}
+
+.fa-chevron-up {
+  margin-left: 10px;
+}
+
+h4 {
+  text-align: left;
+  color: #cfffdf;
 }

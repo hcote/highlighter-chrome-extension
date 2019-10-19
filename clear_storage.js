@@ -1,9 +1,11 @@
-var highlights = {}
 var url = window.location.href.toString();
 
-highlights[url] = {};
-
-chrome.storage.local.set({highlights}, () => {
-  console.log('Storage Cleared');
-  console.log(highlights);
+chrome.storage.local.get("highlights", results => {
+  var highlights = results.highlights;
+  if (highlights[url]) {
+    highlights[url] = {};
+    chrome.storage.local.set({ highlights }, () => {
+      console.log(`Storage Cleared for ${url}`);
+    });
+  }
 });

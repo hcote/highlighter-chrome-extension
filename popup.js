@@ -38,6 +38,10 @@ function toggle() {
       off.style.display = "block";
       var msg = document.getElementsByClassName("toggle-msg")[0];
       msg.style.display = "block";
+      var headerMsgOn = document.getElementsByClassName("on-header")[0];
+      headerMsgOn.style.display = "none";
+      var headerMsgOff = document.getElementsByClassName("off-header")[0];
+      headerMsgOff.style.display = "block";
       chrome.storage.local.set({ active: false }, () => {});
       checkbox.removeAttribute("checked");
     } else {
@@ -47,6 +51,10 @@ function toggle() {
       off.style.display = "none";
       var msg = document.getElementsByClassName("toggle-msg")[0];
       msg.style.display = "block";
+      var headerMsgOn = document.getElementsByClassName("on-header")[0];
+      headerMsgOn.style.display = "block";
+      var headerMsgOff = document.getElementsByClassName("off-header")[0];
+      headerMsgOff.style.display = "none";
       chrome.storage.local.set({ active: true }, () => {});
       checkbox.setAttribute("checked", true);
     }
@@ -61,23 +69,50 @@ function toggle2() {
       on.style.display = "block";
       var off = document.getElementsByClassName("off")[0];
       off.style.display = "none";
+      var headerMsgOn = document.getElementsByClassName("on-header")[0];
+      headerMsgOn.style.display = "block";
+      var headerMsgOff = document.getElementsByClassName("off-header")[0];
+      headerMsgOff.style.display = "none";
       checkbox.setAttribute("checked", true);
     } else {
       var on = document.getElementsByClassName("on")[0];
       on.style.display = "none";
       var off = document.getElementsByClassName("off")[0];
       off.style.display = "block";
+      var headerMsgOn = document.getElementsByClassName("on-header")[0];
+      headerMsgOn.style.display = "none";
+      var headerMsgOff = document.getElementsByClassName("off-header")[0];
+      headerMsgOff.style.display = "block";
       checkbox.removeAttribute("checked");
     }
   });
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  // chrome.storage.local.get("active", results => {
-  //   if (results.active) {
-
-  //   }
-  // });
+  var footer = document.getElementsByClassName("footer")[0];
+  var instructions = document.getElementsByClassName("instructions")[0];
+  footer.addEventListener("click", () => {
+    if (
+      instructions.style.display == "none" ||
+      instructions.style.display == ""
+    ) {
+      instructions.style.display = "block";
+      footer.style.height = "535px";
+      footer.style.transition = "1s";
+      document.getElementsByClassName("instructions-up")[0].style.display =
+        "none";
+      document.getElementsByClassName("instructions-down")[0].style.display =
+        "inline-block";
+    } else {
+      instructions.style.display = "none";
+      footer.style.height = "40px";
+      footer.style.transition = "1s";
+      document.getElementsByClassName("instructions-up")[0].style.display =
+        "inline-block";
+      document.getElementsByClassName("instructions-down")[0].style.display =
+        "none";
+    }
+  });
 
   toggle2();
   var checkbox = document.getElementsByClassName("checkbox")[0];
@@ -112,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var sites = Object.keys(results.highlights).map(el => {
         hlights = Object.keys(results.highlights[el]).map(elem => {
           if (!(elem === "color"))
-            return `<p class="wrap highlights" style="text-align: left">${elem}</p>`;
+            return `<p class="wrap highlights" style="text-align: left">- ${elem}</p>`;
         });
 
         // notes = Object.values(results.higlights[currentTab.url]);
@@ -126,8 +161,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // }
         if (!(el === "color")) {
           return `<details class="detail">
-                <summary>${el}<i class='fa fa-chevron-down'></i></summary>
-                <p class="highlights"><a target="_blank" href="${el}">Visit URL</a><i class='fa fa-external-link'></i></p>
+                <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Visit URL</a><span class="num">${
+            hlights.length
+          }</span></summary>
                 ${hlights.join("")}
               </details>
               <hr />`;

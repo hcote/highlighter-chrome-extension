@@ -1,0 +1,6 @@
+Does not highlight if you select <p>esde<a>dssf</a></p>
+Websites that have a [color] property but no notes show up in the notes section
+DONE : Clear storage clears all storage not for active URL
+
+Maybe limit the URL string in the notes section to 38 characters and put a "... more"
+link undernearth to expand

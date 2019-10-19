@@ -30,14 +30,15 @@
 
     <!-- TOGGLE TAB -->
     <div id="toggle" class="tabcontent show">
-      <h3>Activate or deactivate the extension</h3>
+      <h3 class="on-header">Click to deactivate the extension</h3>
+      <h3 class="off-header">Click to activate the extension</h3>
       <label class="switch">
         <input type="checkbox" class="checkbox" checked />
         <span class="slider round"></span>
       </label>
       <p class="on">On</p>
       <p class="off">Off</p>
-      <p class="toggle-msg">Refresh page so changes save.</p>
+      <p class="toggle-msg">Refresh page to save changes.</p>
     </div>
 
     <!-- NOTES TAB -->
@@ -64,7 +65,7 @@
     <!-- COLOR PICKER TAB -->
     <div id="color" class="tabcontent" style="display:none">
       <form>
-        <h3>Select a custom highlight color for this website:</h3>
+        <h3>Select a custom highlight color for this URL:</h3>
         <input type="color" class="colorPicker" value="#CFFFDF" />
         <input type="submit" value="Reset to #CFFFDF" class="reset" />
         <div class="success-msg-reset" style="display: none; margin-top: 12px;">
@@ -94,6 +95,42 @@
         </p>
       </div>
     </div>
+    <footer class="footer">
+      <p class="footer-header">
+        Instructions <i class="fa fa-chevron-up instructions-up"></i
+        ><i class="fa fa-chevron-down instructions-down"></i>
+      </p>
+      <div class="instructions">
+        <ol>
+          <h4>Highlight</h4>
+          <li>Drag your cursor over text to select it</li>
+          <li>
+            (Mac) Press <span style="text-decoration: underline">⌘ + D</span> on
+            keyboard
+          </li>
+          <li>
+            (PC) Press
+            <span style="text-decoration: underline">Ctrl + D</span> on keyboard
+          </li>
+          <h4>Add Notes</h4>
+          <li>Double click highlighted text</li>
+          <li>
+            To view notes, hover over highlight for 1s
+          </li>
+          <h4>Clear Highlights for Current URL</h4>
+          <li>
+            (Mac) Press
+            <span style="text-decoration: underline">⌘ + Shift + D</span> on
+            keyboard
+          </li>
+          <li>
+            (PC) Press
+            <span style="text-decoration: underline">Ctrl + Shift + D</span> on
+            keyboard
+          </li>
+        </ol>
+      </div>
+    </footer>
     <script src="popup.js" type="text/javascript"></script>
   </body>
 </html>
