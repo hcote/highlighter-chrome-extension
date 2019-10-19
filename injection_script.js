@@ -69,8 +69,8 @@ function removeHighlight() {
   });
 }
 
-function executeHighlight() {
-  document.execCommand("HiliteColor", false, "rgb(207, 255, 223)");
+function executeHighlight(c) {
+  document.execCommand("HiliteColor", false, c);
 }
 
 function addClassToSelectedText() {
@@ -107,8 +107,10 @@ function activateExtension() {
   document.designMode = "on";
   chrome.storage.local.get("highlights", results => {
     if (
-      results.highlights != undefined &&
+      // results.highlights != undefined &&
+      // if there is an object for url
       results.highlights[url] != undefined &&
+      // if there is a color stored for url
       results.highlights[url]["color"] != undefined
     ) {
       highlights = results.highlights;
@@ -126,7 +128,7 @@ function activateExtension() {
       console.log("removing hl");
       removeHighlight();
     } else {
-      executeHighlight();
+      executeHighlight(storedColor);
       addClassToSelectedText();
       saveHighlight();
     }

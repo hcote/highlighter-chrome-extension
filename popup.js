@@ -143,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // current URL styled as a color with a tooltip saying current URL
       var loader = document.getElementsByClassName("loader")[0];
       loader.style.display = "none";
+
       // var notesPs = Object.keys(results.highlights[currentTab.url])
       var sites = Object.keys(results.highlights).map(el => {
         hlights = Object.keys(results.highlights[el]).map(elem => {
