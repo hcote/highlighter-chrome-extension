@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
       instructions.style.display == ""
     ) {
       instructions.style.display = "block";
-      footer.style.height = "535px";
+      footer.style.height = "500px";
       footer.style.transition = "1s";
       document.getElementsByClassName("instructions-up")[0].style.display =
         "none";
@@ -133,8 +133,8 @@ document.addEventListener("DOMContentLoaded", function() {
       var notesDiv = document.getElementsByClassName("notesDiv")[0];
       notesDiv.style.display = "block";
 
-      var searchDiv = document.getElementsByClassName("searchDiv")[0];
-      searchDiv.style.display = "block";
+      // var searchDiv = document.getElementsByClassName("searchDiv")[0];
+      // searchDiv.style.display = "block";
 
       // var urlHeader = document.getElementsByClassName("url-header")[0];
       // urlHeader.style.display = "block";
@@ -147,22 +147,24 @@ document.addEventListener("DOMContentLoaded", function() {
       // var notesPs = Object.keys(results.highlights[currentTab.url])
       var sites = Object.keys(results.highlights).map(el => {
         hlights = Object.keys(results.highlights[el]).map(elem => {
-          if (!(elem === "color"))
+          if (!(elem.trim() == "color")) {
+            if (results.highlights[el][elem][3]) {
+              return `<p class="wrap highlights" style="text-align: left">- ${elem} <em>(note: ${
+                results.highlights[el][elem][3]
+              })</em></p>`;
+            }
             return `<p class="wrap highlights" style="text-align: left">- ${elem}</p>`;
+          }
         });
-
-        // notes = Object.values(results.higlights[currentTab.url]);
-        // if (notes) {
-        //   return `<details>
-        //   <summary>${el}<summary>
-        //   <p>${notes}</p>
-        //   </details>`;
-        // } else {
-        //   return `<summary>${el}</summary>`;
-        // }
-        if (!(el === "color")) {
-          return `<details class="detail">
-                <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Visit URL</a><span class="num">${
+        // ${el.substr( 0, 25)}
+        if (
+          !(
+            results.highlights[el]["color"] &&
+            Object.keys(results.highlights[el]).length == 1
+          )
+        ) {
+          return `<details class="detail"> 
+                <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Link</a><span class="num">${
             hlights.length
           }</span></summary>
                 ${hlights.join("")}
@@ -175,23 +177,19 @@ document.addEventListener("DOMContentLoaded", function() {
         // need the .join('') or else elements will render with commas between them
         notesDiv.innerHTML = sites.join("");
       } else {
-        notesDiv.innerHTML = `No highlights stored yet. Visit <a target="_blank" href="https://chrome.google.com/webstore/detail/markit-online-highlighter/oilpcbohncpdjdadofhbldfmojneciop">
-              here
-            </a> to learn how to use it.`;
+        notesDiv.innerHTML = `No highlights stored yet. Click Instructions to learn how to use it.`;
       }
-      // SEARCH FUNCTION
-      var search = document.getElementsByClassName("searchBar")[0];
-      search.addEventListener("keyup", () => {
-        var val = search.value;
-        // alert(notesDiv.innerText);
-        // sites.filter(el => {
-        //   if (el.indexOf(val) < 0) {
-        //     el.style.display = "none";
-        //   }
-        // });
-      });
     });
+
+    // SEARCH FUNCTIONS
+    // var search = document.getElementsByClassName("searchBar")[0];
+
+    // search.addEventListener("keyup", () => {
+    //   var val = search.value;
+    //   alert(val);
+    // });
   });
+
   var tab3 = document.getElementsByClassName("tablinks")[2];
   tab3.addEventListener("click", () => {
     openTab(event, "color");
@@ -306,13 +304,3 @@ function setColor(e) {
     });
   });
 }
-
-// notes
-// function log(e) {
-//   console.log(e.target.value);
-// }
-
-// window.onload = function() {
-//   document.getElementById('set').addEventListener('click', setColor);
-//   this.console.log("fjrcj");
-// };

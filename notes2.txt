@@ -4,3 +4,7 @@ DONE : Clear storage clears all storage not for active URL
 
 Maybe limit the URL string in the notes section to 38 characters and put a "... more"
 link undernearth to expand
+
+
+
+after i highlight then load the ext color is black

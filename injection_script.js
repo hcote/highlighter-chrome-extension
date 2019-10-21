@@ -9,6 +9,11 @@ var highlights = {};
 var url = window.location.href.toString();
 var text, range, hTag, savedText, key, querySelector, hex;
 
+function rgbToHex(r, g, b) {
+  var rgb = b | (g << 8) | (r << 16);
+  return (0x1000000 | rgb).toString(16).substring(1);
+}
+
 function getBlockElementForQS() {
   if (
     hTag.tagName == "A" ||
@@ -107,10 +112,8 @@ function activateExtension() {
   document.designMode = "on";
   chrome.storage.local.get("highlights", results => {
     if (
-      // results.highlights != undefined &&
-      // if there is an object for url
+      results.highlights != undefined &&
       results.highlights[url] != undefined &&
-      // if there is a color stored for url
       results.highlights[url]["color"] != undefined
     ) {
       highlights = results.highlights;
@@ -118,17 +121,20 @@ function activateExtension() {
     } else {
       storedColor = "rgb(207, 255, 223)";
     }
+    var n = storedColor.replace(/^\D+/g, "");
+    var c = n.split(")");
+    var q = c[0];
+    var rgbColor = q.split(",");
+    hex = rgbToHex(...rgbColor);
     grabSelectedText();
     getBlockElementForQS();
     console.log(storedColor);
     console.log(savedText.anchorNode.parentElement.style.backgroundColor);
-    if (
-      savedText.anchorNode.parentElement.style.backgroundColor == storedColor
-    ) {
+    if (savedText.anchorNode.parentElement.style.backgroundColor == hex) {
       console.log("removing hl");
       removeHighlight();
     } else {
-      executeHighlight(storedColor);
+      executeHighlight(hex);
       addClassToSelectedText();
       saveHighlight();
     }

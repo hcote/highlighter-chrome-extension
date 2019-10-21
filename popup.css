@@ -4,6 +4,11 @@ body {
   background-color: rgba(97, 152, 207, 0.25);
   transition: 0.3s;
   font-family: "Montserrat", sans-serif;
+  overflow: auto;
+}
+
+html {
+  overflow: auto;
 }
 
 .wide-body {
@@ -13,7 +18,7 @@ body {
 
 /* NAV */
 .tab {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   /* background: rgb(26, 26, 28);
   background: radial-gradient(
     circle,
@@ -170,6 +175,10 @@ input:checked + .slider:before {
   background-color: rgba(97, 152, 207, 0.3);
   padding: 6px;
   border-radius: 8px;
+}
+
+.notes-url {
+  color: gray;
 }
 
 hr {
