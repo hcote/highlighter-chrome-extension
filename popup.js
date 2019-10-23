@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
       instructions.style.display == ""
     ) {
       instructions.style.display = "block";
-      footer.style.height = "500px";
+      footer.style.height = "510px";
       footer.style.transition = "1s";
       document.getElementsByClassName("instructions-up")[0].style.display =
         "none";
@@ -161,7 +161,8 @@ document.addEventListener("DOMContentLoaded", function() {
           !(
             results.highlights[el]["color"] &&
             Object.keys(results.highlights[el]).length == 1
-          )
+          ) &&
+          Object.keys(results.highlights[el]).length > 0
         ) {
           return `<details class="detail"> 
                 <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Link</a><span class="num">${
@@ -172,9 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
               <hr />`;
         }
       });
-      // <p>${JSON.stringify(results.highlights)}</p> // to show highlights object
-      if (Object.keys(results.highlights).length > 0) {
-        // need the .join('') or else elements will render with commas between them
+      if (Object.keys(results.highlights).length > 0 && hlights.length > 0) {
         notesDiv.innerHTML = sites.join("");
       } else {
         notesDiv.innerHTML = `No highlights stored yet. Click Instructions to learn how to use it.`;
@@ -196,6 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // change highlight color in example text
     var colorPicker = document.getElementsByClassName("colorPicker")[0];
+    colorPicker.value = "#CFFFDF";
     colorPicker.addEventListener("change", e => {
       console.log(e);
       var example = document.getElementsByClassName("example-text")[0];
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var currentTab = tabs[0];
       chrome.storage.local.get("highlights", results => {
         highlights = results.highlights;
-        if (highlights[currentTab.url]) {
+        if (highlights[currentTab.url] && highlights[currentTab.url]["color"]) {
           colorPicker.value = highlights[currentTab.url]["color"];
         }
         var example = document.getElementsByClassName("example-text")[0];

@@ -11,7 +11,13 @@ var text, range, hTag, savedText, key, querySelector, hex;
 
 function rgbToHex(r, g, b) {
   var rgb = b | (g << 8) | (r << 16);
-  return (0x1000000 | rgb).toString(16).substring(1);
+  return (
+    "#" +
+    (0x1000000 | rgb)
+      .toString(16)
+      .substring(1)
+      .toUpperCase()
+  );
 }
 
 function getBlockElementForQS() {
@@ -117,24 +123,33 @@ function activateExtension() {
       results.highlights[url]["color"] != undefined
     ) {
       highlights = results.highlights;
-      storedColor = highlights[url]["color"] || "rgb(207, 255, 223)";
+      storedColor = highlights[url]["color"].toUpperCase() || "#CFFFDF";
     } else {
-      storedColor = "rgb(207, 255, 223)";
+      storedColor = "#CFFFDF";
     }
-    var n = storedColor.replace(/^\D+/g, "");
-    var c = n.split(")");
-    var q = c[0];
-    var rgbColor = q.split(",");
-    hex = rgbToHex(...rgbColor);
     grabSelectedText();
     getBlockElementForQS();
-    console.log(storedColor);
-    console.log(savedText.anchorNode.parentElement.style.backgroundColor);
-    if (savedText.anchorNode.parentElement.style.backgroundColor == hex) {
-      console.log("removing hl");
-      removeHighlight();
+    if (window.getSelection().anchorNode.parentElement.style.backgroundColor) {
+      var n = window
+        .getSelection()
+        .anchorNode.parentElement.style.backgroundColor.replace(/^\D+/g, "");
+      var c = n.split(")");
+      var q = c[0];
+      var rgbColor = q.split(",");
+      hex = rgbToHex(...rgbColor);
+      console.log(hex); // uppercase hex
+      console.log(savedText.anchorNode.parentElement.style.backgroundColor);
+      console.log(storedColor.toUpperCase());
+      if (hex == storedColor.toUpperCase()) {
+        console.log("removing hl");
+        removeHighlight();
+      } else {
+        executeHighlight(storedColor.toUpperCase());
+        addClassToSelectedText();
+        saveHighlight();
+      }
     } else {
-      executeHighlight(hex);
+      executeHighlight(storedColor.toUpperCase());
       addClassToSelectedText();
       saveHighlight();
     }
