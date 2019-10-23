@@ -164,13 +164,22 @@ document.addEventListener("DOMContentLoaded", function() {
           ) &&
           Object.keys(results.highlights[el]).length > 0
         ) {
-          return `<details class="detail"> 
-                <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Link</a><span class="num">${
-            hlights.length
-          }</span></summary>
-                ${hlights.join("")}
-              </details>
-              <hr />`;
+          if (results.highlights[el]["color"]) {
+            return `<details class="detail"> 
+                  <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Link</a><span class="num">${hlights.length -
+              1}</span></summary>
+                  ${hlights.join("")}
+                </details>
+                <hr />`;
+          } else {
+            return `<details class="detail"> 
+                  <summary class="notes-url wrap">${el}<i class='fa fa-chevron-down' style='display: inline-block; margin-right: 6px'></i><a class="url" target="_blank" href="${el}">Link</a><span class="num">${
+              hlights.length
+            }</span></summary>
+                  ${hlights.join("")}
+                </details>
+                <hr />`;
+          }
         }
       });
       if (Object.keys(results.highlights).length > 0 && hlights.length > 0) {
