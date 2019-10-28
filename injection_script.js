@@ -1,5 +1,4 @@
 chrome.storage.local.get("active", results => {
-  console.log(results.active);
   if (results.active) {
     document.getElementsByTagName("body")[0].onmouseup = grabText();
   }
@@ -88,32 +87,6 @@ function addClassToSelectedText() {
   savedText.anchorNode.parentElement.className = "el";
 }
 
-// function activateExtension() {
-//   document.designMode = "on";
-//   grabSelectedText();
-//   getBlockElementForQS();
-//   if (
-//     savedText.anchorNode.parentElement.style.backgroundColor ==
-//     "rgb(199, 255, 216)"
-//   ) {
-//     removeHighlight();
-//   } else {
-//     executeHighlight();
-//     addClassToSelectedText();
-//     saveHighlight();
-//   }
-//   document.designMode = "off";
-// }
-
-// function executeHighlight() {
-//   console.log(storedColor);
-//   document.execCommand("HiliteColor", false, storedColor);
-// }
-
-// function addClassToSelectedText() {
-//   savedText.anchorNode.parentElement.className = "el";
-// }
-
 function activateExtension() {
   document.designMode = "on";
   chrome.storage.local.get("highlights", results => {
@@ -137,11 +110,7 @@ function activateExtension() {
       var q = c[0];
       var rgbColor = q.split(",");
       hex = rgbToHex(...rgbColor);
-      console.log(hex); // uppercase hex
-      console.log(savedText.anchorNode.parentElement.style.backgroundColor);
-      console.log(storedColor.toUpperCase());
       if (hex == storedColor.toUpperCase()) {
-        console.log("removing hl");
         removeHighlight();
       } else {
         executeHighlight(storedColor.toUpperCase());
@@ -160,53 +129,49 @@ function activateExtension() {
 function grabText() {
   var sel = window.getSelection(),
     range = sel.getRangeAt(0),
+    sc = range.startContainer,
+    ec = range.endContainer,
     s,
     e;
-  // if (range.toString().length > 0) {
-  function getBlockNode(r) {
+  function getStartNode(r) {
     // if item is block element, grab it to compare
     if (
-      (r.startContainer.parentElement != "SPAN" ||
-        r.startContainer.parentElement != "A" ||
-        r.startContainer.parentElement != "CODE" ||
-        r.startContainer.parentElement != "STRONG" ||
-        r.startContainer.parentElement != "EM" ||
-        r.startContainer.parentElement != "I") &&
-      (r.endContainer.parentElement != "SPAN" ||
-        r.endContainer.parentElement != "A" ||
-        r.endContainer.parentElement != "CODE" ||
-        r.endContainer.parentElement != "STRONG" ||
-        r.endContainer.parentElement != "EM" ||
-        r.endContainer.parentElement != "I")
+      r.parentElement.tagName != "SPAN" &&
+      r.parentElement.tagName != "A" &&
+      r.parentElement.tagName != "CODE" &&
+      r.parentElement.tagName != "STRONG" &&
+      r.parentElement.tagName != "EM" &&
+      r.parentElement.tagName != "I"
     ) {
-      s = r.startContainer.parentElement;
-      e = r.endContainer.parentElement;
+      s = r.parentElement;
+      console.log(`pE start: ${r.parentElement.tagName}`);
+      console.log(`s: ${s}`);
     } else {
+      s = r.parentElement;
       // if item is inline, go again
-      getBlockNode(r);
+      getStartNode(s);
     }
   }
-  getBlockNode(range);
-  if (s.isSameNode(e)) {
+  function getEndNode(r) {
+    // if item is block element, grab it to compare
+    if (
+      r.parentElement.tagName != "SPAN" &&
+      r.parentElement.tagName != "A" &&
+      r.parentElement.tagName != "CODE" &&
+      r.parentElement.tagName != "STRONG" &&
+      r.parentElement.tagName != "EM" &&
+      r.parentElement.tagName != "I"
+    ) {
+      e = r.parentElement;
+    } else {
+      // if item is inline, go again
+      e = r.parentElement;
+      getEndNode(e);
+    }
+  }
+  getStartNode(sc);
+  getEndNode(ec);
+  if (s.isSameNode(e) || s.isSameNode(ec.previousElementSibling)) {
     activateExtension();
   }
-  // } else {
-  // console.log("no highlight found");
 }
-
-// function showTT(r) {
-//   var rect = r.getBoundingClientRect();
-//   var span = document.createElement("SPAN");
-//   span.id = "tooltip";
-//   span.style.backgroundColor = "#000";
-//   span.innerText = "highlight";
-//   span.style.width = "70px";
-//   span.style.textAlign = "center";
-//   span.style.borderRadius = "8px";
-//   span.style.color = "#FFF";
-//   span.style.display = "inline-block";
-//   span.style.padding = "8px";
-//   span.style.top = rect.y - 35 + "px";
-//   span.style.left = (rect.left - rect.right) / 2 + rect.right + "px";
-//   document.body.appendChild(span);
-// }

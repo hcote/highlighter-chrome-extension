@@ -184,6 +184,7 @@ input:checked + .slider:before {
 hr {
   width: 78%;
   border-color: rgba(253, 253, 253, 0.651);
+  margin: 0 auto;
 }
 
 details > summary {
@@ -271,6 +272,12 @@ a,
 }
 
 .num {
+  /* color: #cfffdf;
+  width: 20px;
+  height: 100%;
+  background-color: #0f2517;
+  padding: 3px 7px;
+  border-radius: 50%; */
   color: #0f2517;
 }
 
@@ -300,6 +307,11 @@ a,
 
 .example-text {
   background-color: #cfffdf;
+}
+
+.example-text-div {
+  width: 90%;
+  margin: 0 auto;
 }
 
 /* FOOTER */

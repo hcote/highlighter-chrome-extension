@@ -7,8 +7,8 @@ var exp = document.getElementById("expand");
 function expand() {
   var faExp = document.getElementsByClassName("fa-expand")[0];
   var faCom = document.getElementsByClassName("fa-compress")[0];
-  var sb = document.getElementsByClassName("searchBar")[0];
-  sb.classList.add("wide-search");
+  // var sb = document.getElementsByClassName("searchBar")[0];
+  // sb.classList.add("wide-search");
   faExp.style.display = "none";
   faCom.style.display = "block";
   document.body.classList.add("wide-body");
@@ -133,8 +133,8 @@ document.addEventListener("DOMContentLoaded", function() {
       var notesDiv = document.getElementsByClassName("notesDiv")[0];
       notesDiv.style.display = "block";
 
-      // var searchDiv = document.getElementsByClassName("searchDiv")[0];
-      // searchDiv.style.display = "block";
+      var searchDiv = document.getElementsByClassName("searchDiv")[0];
+      searchDiv.style.display = "block";
 
       // var urlHeader = document.getElementsByClassName("url-header")[0];
       // urlHeader.style.display = "block";
@@ -206,7 +206,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var colorPicker = document.getElementsByClassName("colorPicker")[0];
     colorPicker.value = "#CFFFDF";
     colorPicker.addEventListener("change", e => {
-      console.log(e);
       var example = document.getElementsByClassName("example-text")[0];
       example.style.backgroundColor = colorPicker.value;
     });
@@ -294,11 +293,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
-// GET NOTES
-function getNotes() {
-  console.log("got notes...");
-}
-
 // CHANGE COLOR
 var highlights;
 var newColor = document.getElementById("colorPicker");
@@ -307,9 +301,6 @@ function setColor(e) {
   chrome.storage.local.get("highlights", results => {
     highlights = results.highlights;
     highlights[color] = newColor.value;
-    chrome.storage.local.set({ highlights }, () => {
-      console.log("New Color Set");
-      console.log(highlights);
-    });
+    chrome.storage.local.set({ highlights }, () => {});
   });
 }

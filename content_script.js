@@ -11,8 +11,6 @@ function searchForHighlights() {
         return;
       } else {
         applyHighlights(results.highlights[url]);
-
-        console.log(results);
         addPromptToTargets();
       }
     }
@@ -33,12 +31,8 @@ function createHighlightObj() {
   active = {
     active: true
   };
-  chrome.storage.local.set({ highlights, active }, () => {
-    console.log("highlights and active set");
-  });
-  chrome.storage.local.get("active", results => {
-    console.log(results.active);
-  });
+  chrome.storage.local.set({ highlights, active }, () => {});
+  chrome.storage.local.get("active", results => {});
   return;
 }
 

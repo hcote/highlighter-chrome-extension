@@ -51,11 +51,13 @@
         <div id="compress">
           <i class="fa fa-compress"></i>
         </div>
-        <input
+        <!-- <input
           type="text"
           placeholder="Search highlights..."
           class="searchBar"
-        /><span><i class="fa fa-search"></i></span>
+          /> -->
+        <!-- <i class="fa fa-search"></i> -->
+        <span class="searchBar"></span>
       </div>
       <h4 class="url-header wrap"></h4>
       <div class="notesDiv"></div>
@@ -81,8 +83,8 @@
       <div class="success-msg" style="display: none; margin-top: 12px;">
         Success! Refresh to see changes.
       </div>
-      <hr style="margin: 30px 10px" />
-      <div>
+      <hr style="margin: 30px auto" />
+      <div class="example-text-div">
         <h3>Example</h3>
         <!-- <p>
           Filler text is text that shares some characteristics of a real written
@@ -138,6 +140,10 @@
             keyboard
           </li>
         </ol>
+        <p style="color: red; font-size: 10px">
+          * Cannot highlight across line breaks (such as two different
+          paragraphs or list items)
+        </p>
       </div>
     </footer>
     <script src="popup.js" type="text/javascript"></script>
