@@ -1,6 +1,6 @@
 {
-  "name": "Markit - Online Highlighter and Note Taker",
-  "version": "2.0",
+  "name": "Markit - Highlighter and Note Taker.",
+  "version": "3.2",
   "description": "Highlight and add notes to any text on the web with Markit.",
   "background": {
     "scripts": ["background.js"]
@@ -10,13 +10,13 @@
     "highlight_text": {
       "suggested_key": {
         "mac": "Command+K",
-        "default": "Ctrl+E"
+        "default": "Ctrl+K"
       },
       "description": "Highlight Selected Text"
     },
     "clear_storage": {
       "suggested_key": {
-        "mac": "Command+Shift+K",
+        "mac": "Command+Shift+A",
         "default": "Ctrl+Shift+A"
       },
       "description": "Clear highlights for current URL"

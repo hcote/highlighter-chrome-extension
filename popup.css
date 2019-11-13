@@ -33,6 +33,9 @@ html {
   overflow: hidden;
   border: 1px solid transparent;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .tabcontent {
@@ -201,6 +204,10 @@ details > summary::-webkit-details-marker {
 .searchDiv,
 .url-header {
   display: none;
+}
+
+.searchDiv {
+  float: right;
 }
 
 .wrap {

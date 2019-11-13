@@ -1,8 +1,8 @@
-chrome.storage.local.get("active", results => {
-  if (results.active) {
-    document.getElementsByTagName("body")[0].onmouseup = grabText();
-  }
-});
+// chrome.storage.local.get("active", results => {
+//   if (results.active) {
+document.getElementsByTagName("body")[0].onmouseup = grabText();
+//   }
+// });
 
 var highlights = {};
 var url = window.location.href.toString();

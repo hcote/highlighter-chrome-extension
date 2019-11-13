@@ -28,11 +28,11 @@ function objDoesNotExist(results) {
 
 function createHighlightObj() {
   highlights = {};
-  active = {
-    active: true
-  };
-  chrome.storage.local.set({ highlights, active }, () => {});
-  chrome.storage.local.get("active", results => {});
+  // active = {
+  //   active: true
+  // };
+  chrome.storage.local.set({ highlights }, () => {});
+  // chrome.storage.local.get("active", results => {});
   return;
 }
 
