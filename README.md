@@ -1,5 +1,5 @@
 ## Elephant Highlighter
-This is a chrome extension "link to google store" that lets you highlight important text on any web page. Revisit the page in 1 minute, 1 week, or 1 year - your data will always be there.
+This is a chrome extension <a href="https://chrome.google.com/webstore/detail/markit-highlighter-and-no/oilpcbohncpdjdadofhbldfmojneciop?hl=en-US">link</a> that lets you highlight important text on any web page. Revisit the page in 1 minute, 1 week, or 1 year - your data will always be there.
 
 ## Technologies
 1. (Vanilla) JavaScript
