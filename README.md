@@ -40,9 +40,9 @@ To highlight, drag your mouse over some text, and hit Command+E. This triggers a
     2. Gets the 'highlights' object from storage (chrome.storage.get())
     3. Loops through all keys (which is the saved highlights) to look for a match, and deletes it from storage
 4. Else, wrap the text in a < span > and apply the background color 
-5. Retrieve 'highlights' from storage
-    1. If there is no data for the active URL, set the value to an empty object (aol.com: {})
-    2. If there is, assign the highlights variable to the results from chrome.storage.get()
+5. On page refresh: Retrieve 'highlights' from storage
+    1. If there is no data for the active URL, set the key to the current URL and value to an empty object (aol.com: {})
+    2. If there is, grab the highlights data structure from storage (chrome.storage.get())
 6. Retrieve and assign a valid query selector value for the selected text (this will be used to query the DOM and apply the highlights later. Refer to the object structure above for clarification)
     1. If the parent element of the highlighted text has a class name, store a string "element.className" ("p.firstParagraph", "h2.sectionHeader", etc)
     2. If there is no class name, store the string "element" ("p", "h2", "li", etc)
