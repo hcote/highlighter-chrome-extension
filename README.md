@@ -14,16 +14,16 @@ This is a chrome extension <a href="https://chrome.google.com/webstore/detail/ma
 ```
 highlights = {
     google.com: {
-        text1: ["query selector", index]
-        text2: ["query selector", index]
+        text1: ["query selector", index, note, color]
+        text2: ["query selector", index, note, color]
     },
     yahoo.com: {
-        text3: ["query selector", index],
-        text4: ["query selector", index]
+        text3: ["query selector", index, note, color],
+        text4: ["query selector", index, note, color]
     },
     https://developer.mozilla.org/en-US/docs/Web/API/document/execCommand: {
         "When an HTML document has been switched to designMode, its document object exposes an execCommand": ["p.summary", 20],
-        "A DOMString specifying the name of the command to execute. See Commands for a list of possible commands.": ["p", 0]
+        "A DOMString specifying the name of the command to execute. See Commands for a list of possible commands.": ["p", 0, "example note", #CFFFDF]
     }
 }
 ```
