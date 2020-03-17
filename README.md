@@ -30,14 +30,14 @@ highlights = {
 
 ## How It Works
 
-I have two scripts that load on every page. The first is background.js which listens for a specific event. The event Command+E triggers a function that injects a script into the browser (injection_script.js), which highlights selected text. 
+I have two scripts that load on every page. The first is background.js which listens for a specific event. The event Command+K triggers a function that injects a script into the browser (injection_script.js), which highlights selected text. 
 
-To highlight, drag your mouse over some text, and hit Command+E. This triggers a function which calls several others. Sequence of events:
+To highlight, drag your mouse over some text, and hit Command+K. This triggers a function which calls several others. Sequence of events:
 1. Grabs selected text
-2. Turns Design Mode "on", allowing us to make changes to the DOM
-3. If the background is already highlighted (need to remove highlight):
+2. Turns Design Mode "on", allowing us to make temporary changes to the DOM
+3. If the background is already highlighted, then we need to remove the highlight:
     1. Selects the < span > tag surrounding text and sets style.backgroundColor = transparent (remove the highlight)
-    2. Gets the 'highlights' object from storage (chrome.storage.get())
+    2. Gets the 'highlights' object from storage - <code>chrome.storage.get()</code>
     3. Loops through all keys (which is the saved highlights) to look for a match, and deletes it from storage
 4. Else, wrap the text in a < span > and apply the background color 
 5. On page refresh: Retrieve 'highlights' from storage
